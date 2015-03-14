@@ -63,7 +63,7 @@ public class GeneroController extends HttpServlet {
 			Genero genero = new Genero();
 			genero.setId(0);
 			genero.setNome("");
-			genero.setStatus("");
+			
 
 			request.setAttribute("genero", genero);
 

@@ -18,7 +18,27 @@
  Email: <input type="text" name="email" value="${requestScope.cliente.email}"/> <br />
  Telefone: <input type="text" name="telefone" value="${requestScope.cliente.telefone}"/> <br />
  Endereço: <input type="text" name="endereco" value="${requestScope.cliente.endereco}"/> <br />
- Status: <input type="text" name="status" value="${requestScope.cliente.status }"/> <br />
+ 
+<c:if test="${cliente.status == 'A' || cliente.status == null}">
+
+   <input type="radio" name="status" value="A" checked="checked">
+	<label >Ativo</label><br>
+
+	<input type="radio" name="status" value="I">
+	<label >Inativo</label><br>
+
+</c:if>
+
+<c:if test="${cliente.status == 'I'}">
+
+<input type="radio" name="status" value="A" >
+	<label >Ativo</label><br>
+
+	<input type="radio" name="status" value="I" checked="checked" >
+	<label >Inativo</label><br>
+
+</c:if> 
+	
  <input type="submit" value="Gravar" />
 
 </form>

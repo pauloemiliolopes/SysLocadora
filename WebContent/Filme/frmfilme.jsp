@@ -22,14 +22,37 @@
  Quantidade: <input type="text" name="qtd" value="${requestScope.filme.qtd}"/> <br />
  Preço: <input type="text" name="preco" value="${requestScope.filme.preco}"/> <br />
  
+
+
  Selecione Genero : <select name="generos">
 <c:forEach items="${requestScope.listaGenero}" var="genero">
 <option value="${genero.id}">${genero.nome}</option>
 </c:forEach> 
 </select><br/>
- 
- Status: <input type="text" name="status" value="${requestScope.filme.status }"/> <br />
- <input type="submit" value="Gravar" />
+
+
+
+<c:if test="${filme.status == 'A' || filme.status == null}">
+
+   <input type="radio" name="status" value="A" checked="checked">
+	<label >Ativo</label><br>
+
+	<input type="radio" name="status" value="I">
+	<label >Inativo</label><br>
+
+</c:if>
+
+<c:if test="${filme.status == 'I'}">
+
+<input type="radio" name="status" value="A" >
+	<label >Ativo</label><br>
+
+	<input type="radio" name="status" value="I" checked="checked" >
+	<label >Inativo</label><br>
+
+</c:if> 
+	
+ <input type="submit" value="Gravar"/>
 
 </form>
 

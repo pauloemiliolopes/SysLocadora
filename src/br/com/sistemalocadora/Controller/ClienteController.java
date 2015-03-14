@@ -65,7 +65,7 @@ public class ClienteController extends HttpServlet {
 			Cliente cliente = new Cliente();
 			cliente.setId(0);
 			cliente.setNome("");
-			cliente.setStatus("");
+			
 
 			request.setAttribute("cliente", cliente);
 

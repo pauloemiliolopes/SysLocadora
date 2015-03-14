@@ -13,7 +13,29 @@
 <form action="generocontroller.do" method="post">
  <input type="hidden" name="id" value="${requestScope.genero.id }"/> <br />
  Descriçao: <input type="text" name="nome" value="${requestScope.genero.nome}"/> <br />
- Status: <input type="text" name="status" value="${requestScope.genero.status }"/> <br />
+ 
+
+ <c:if test="${genero.status == 'A' || genero.status == null}">
+
+   <input type="radio" name="status" value="A" checked="checked">
+	<label >Ativo</label><br>
+
+	<input type="radio" name="status" value="I">
+	<label >Inativo</label><br>
+
+</c:if>
+
+<c:if test="${genero.status == 'I'}">
+
+<input type="radio" name="status" value="A" >
+	<label >Ativo</label><br>
+
+	<input type="radio" name="status" value="I" checked="checked" >
+	<label >Inativo</label><br>
+
+</c:if> 
+ 
+
  <input type="submit" value="Gravar" />
 
 </form>

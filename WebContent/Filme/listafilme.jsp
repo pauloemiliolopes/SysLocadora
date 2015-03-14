@@ -37,7 +37,9 @@
 <td>${filme.tempoloc}</td>
 <td>${filme.qtd}</td>
 <td>${filme.preco}</td>
+
 <td>${filme.genero}</td>
+
 <td>${filme.status}</td>
 <td>
 |

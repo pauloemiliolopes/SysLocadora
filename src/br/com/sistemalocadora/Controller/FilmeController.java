@@ -65,11 +65,12 @@ public class FilmeController extends HttpServlet {
 
 			Filme filme = dao.BuscarPorId(Integer.parseInt(id));
 			
+			request.setAttribute("filme", filme);
+				
             List<Genero> listaGenero = daogenero.buscarTodos();
 			
 			request.setAttribute("listaGenero", listaGenero);
 
-			request.setAttribute("filme", filme);
 			RequestDispatcher saida = request
 					.getRequestDispatcher("Filme/frmfilme.jsp");
 			saida.forward(request, response);
@@ -77,8 +78,10 @@ public class FilmeController extends HttpServlet {
 		}
 
 		if (acao != null && acao.equals("cad")) {
-
+			
 			Filme filme = new Filme();
+			
+			filme.setId(0);
 			
 			List<Genero> listaGenero = daogenero.buscarTodos();
 			
@@ -93,8 +96,7 @@ public class FilmeController extends HttpServlet {
 		}
 
 		if (acao != null && acao.equals("lis")) {
-			
-			
+		
 			List<Filme> lista = dao.buscarTodos();
 			
 			request.setAttribute("lista", lista);
