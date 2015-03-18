@@ -77,6 +77,13 @@ public class Filme {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "Filme [id=" + id + ", nome=" + nome + ", datalanc=" + datalanc
+				+ ", sinopse=" + sinopse + ", tempoloc=" + tempoloc + ", qtd="
+				+ qtd + ", preco=" + preco + ", status=" + status + ", genero="
+				+ genero + "]";
+	}
 	
 	
 	

@@ -26,7 +26,9 @@
 
  Selecione Genero : <select name="generos">
 <c:forEach items="${requestScope.listaGenero}" var="genero">
+
 <option value="${genero.id}">${genero.nome}</option>
+
 </c:forEach> 
 </select><br/>
 

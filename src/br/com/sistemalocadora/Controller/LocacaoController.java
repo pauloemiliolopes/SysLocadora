@@ -1,11 +1,6 @@
 package br.com.sistemalocadora.Controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,13 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.sistemalocadora.DAO.ClienteDAO;
 import br.com.sistemalocadora.DAO.FilmeDAO;
-import br.com.sistemalocadora.DAO.GeneroDAO;
-import br.com.sistemalocadora.DAO.ItensLocacaoDAO;
 import br.com.sistemalocadora.DAO.LocacaoDAO;
 import br.com.sistemalocadora.Model.Cliente;
 import br.com.sistemalocadora.Model.Filme;
-import br.com.sistemalocadora.Model.Genero;
-import br.com.sistemalocadora.Model.ItensLocacao;
 import br.com.sistemalocadora.Model.Locacao;
 
 @WebServlet("/locacaocontroller.do")
@@ -41,8 +32,10 @@ public class LocacaoController extends HttpServlet {
 		System.out.println("Metodo Get");
 
 		String acao = request.getParameter("acao");
-
+		String nomeCliente = request.getParameter("buscar");
+		String nomeFilme = request.getParameter("buscarfilme");
 		LocacaoDAO dao = new LocacaoDAO();
+		FilmeDAO filmeDao = new FilmeDAO();
 
 		ClienteDAO daocliente = new ClienteDAO();
 
@@ -92,13 +85,9 @@ public class LocacaoController extends HttpServlet {
 
 		}
 
-		if (acao != null && acao.equals("busca")) {
-		
-			String nome = request.getParameter("buscar");
-			
-			System.out.println(nome);
+		if (nomeCliente != null) {
 
-			List<Cliente> listaCliente = daocliente.BuscarPorNome(nome);
+			List<Cliente> listaCliente = daocliente.BuscarPorNome(nomeCliente);
 
 			request.setAttribute("listaCliente", listaCliente);
 
@@ -106,6 +95,17 @@ public class LocacaoController extends HttpServlet {
 					.getRequestDispatcher("Locacao/frmlocacao.jsp");
 			saida.forward(request, response);
 
+		}
+
+		if (nomeFilme != null) {
+
+			List<Filme> listFilme = filmeDao.BuscarPorNome(nomeFilme);
+
+			request.setAttribute("listfilme", listFilme);
+
+			RequestDispatcher saida = request
+					.getRequestDispatcher("Locacao/frmlocacao.jsp");
+			saida.forward(request, response);
 		}
 
 	}

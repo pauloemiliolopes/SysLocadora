@@ -1,16 +1,19 @@
 package br.com.sistemalocadora.Model;
 
 public class Genero {
-	
+
 	private Integer id;
 	private String nome;
 	private String status;
-	
-	public Genero(){
-		
-		
+
+	public Genero() {
+
 	}
-	
+
+	public Genero(String nome) {
+		this.nome = nome;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -22,16 +25,17 @@ public class Genero {
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
 
 }
