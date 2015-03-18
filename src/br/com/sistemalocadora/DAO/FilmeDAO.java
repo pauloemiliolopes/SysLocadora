@@ -11,7 +11,6 @@ import java.util.List;
 
 import br.com.sistemalocadora.JDBC.Conexao;
 import br.com.sistemalocadora.Model.Filme;
-import br.com.sistemalocadora.Model.Genero;
 
 public class FilmeDAO {
 	
@@ -174,7 +173,7 @@ public class FilmeDAO {
 		       filme.setDatalanc(ca);
 		       filme.setSinopse(rs.getString("sinopse"));
 		       filme.setTempoloc(rs.getInt("tempolocacao"));
-		       filme.setQtd(rs.getInt("qtd"));
+		       filme.setQtd(rs.getInt("qtd"));	
 		       filme.setPreco(rs.getBigDecimal("preco"));
 		       filme.setGenero(daogenero.BuscarPorId(rs.getInt("fk_genero")));
 		      
@@ -209,6 +208,55 @@ public class FilmeDAO {
 		   }
 	 
 	   }
+
+
+	public List<Filme> BuscarPorNome(String nome) {
+		String sql = "select * from filmes where nome_filme Like ?";
+		   
+		   List<Filme> lista = new ArrayList<>();
+		   
+		   try {
+			     
+		       PreparedStatement stmt = con.prepareStatement(sql);
+
+		       stmt.setString(1, "%"+nome+"%");
+		      
+		       stmt.execute();
+		       
+		       ResultSet rs = stmt.executeQuery();
+		       
+		       while(rs.next()){
+					 
+					Filme filme = new Filme();
+
+					 filme.setId(rs.getInt("pk_filme"));
+				       filme.setNome(rs.getString("nome_filme"));
+				       Calendar ca = Calendar.getInstance();
+				       System.out.println(rs.getTimestamp("lancamento"));
+				       ca.setTimeInMillis((rs.getTimestamp("lancamento").getTime()));
+				       
+				       filme.setDatalanc(ca);
+				       filme.setSinopse(rs.getString("sinopse"));
+				       filme.setTempoloc(rs.getInt("tempolocacao"));
+				       filme.setQtd(rs.getInt("qtd"));
+				       filme.setPreco(rs.getBigDecimal("preco"));
+				       filme.setGenero(daogenero.BuscarPorId(rs.getInt("fk_genero")));
+				      
+				       filme.setStatus(rs.getString("Status"));
+				     
+				     lista.add(filme);
+				
+					 }
+		       
+		   } catch (SQLException e) {
+			   
+		       System.out.println("Erro ao cadastrar Cliente "+ e.getMessage());
+		       
+		   }
+	   
+		  return lista;
+	  
+	}
 
 	 
 }

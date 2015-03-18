@@ -27,12 +27,12 @@
 				<h1>Iniciar Venda</h1>
 				
 
-				Buscar Cliente por Nome : <input type="text" name="buscar" />
-				
-				<a href="locacaocontroller.do?acao=busca"><button >Buscar</button></a>
-				
-				
-				
+				 
+				<form action="locacaocontroller.do" method="get">
+					<label>Buscar Cliente por Nome : </label><input type="text" name="buscar" />
+					<button>Buscar</button>
+				</form>
+						
 				<br />
 
 				<table border='1'>
@@ -106,11 +106,28 @@
 		<div id="corpo2">
 			<div id="cadiloc">
 				<h1>Adicionar Itens da Locação</h1>
+				<form action="locacaocontroller.do" method="get">
+					<label>Buscar Filme por Nome : </label><input type="text" name="buscarfilme" />
+					<button>Buscar</button>
+				</form>
+						<table border='1'>
+					<tr bgcolor='EAEAEA'>
+						
+						<th>Nome</th>
+						<th>Preço</th>
+						
 
+					</tr>
 
-
-
+					<c:forEach items="${requestScope.listfilme}" var="filme">
+						<tr>
+							<td>${filme.nome}</td>
+							<td>${filme.preco}</td>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
+			
 			<div id="lisiloc">
 				<h1>Lista de Itens Locação</h1>
 

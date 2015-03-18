@@ -49,6 +49,7 @@ public class AutenticadorController extends HttpServlet {
 		String senha = request.getParameter("senha");
 		
 		Usuario usu = new Usuario();
+		System.out.println(user +" "+senha);
 		
 		usu.setUser(user);
 		usu.setSenha(senha);
@@ -66,7 +67,7 @@ public class AutenticadorController extends HttpServlet {
 			
 		}else{
 			
-		    String msg = "Usuário ou Senha Invalidos!";
+		    String msg = "Usuï¿½rio ou Senha Invalidos!";
 			request.setAttribute("msg", msg);
 			RequestDispatcher saida = request.getRequestDispatcher("frmlogin.jsp");
 			saida.forward(request, response);
