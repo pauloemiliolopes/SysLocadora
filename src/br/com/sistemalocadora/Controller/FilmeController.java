@@ -29,7 +29,7 @@ import br.com.sistemalocadora.Model.Genero;
 
 
 @WebServlet("/filmecontroller.do")
-public class FilmeController extends HttpServlet {
+public class FilmeController extends HttpServlet implements ChagePositionGenero<Genero>{
 	private static final long serialVersionUID = 1L;
        
    
@@ -60,7 +60,7 @@ public class FilmeController extends HttpServlet {
 		}
 
 		if (acao != null && acao.equals("alt")) {
-
+			
 			String id = request.getParameter("id");
 
 			Filme filme = dao.BuscarPorId(Integer.parseInt(id));
@@ -68,8 +68,10 @@ public class FilmeController extends HttpServlet {
 			request.setAttribute("filme", filme);
 				
             List<Genero> listaGenero = daogenero.buscarTodos();
-			
+            
 			request.setAttribute("listaGenero", listaGenero);
+			
+         
 
 			RequestDispatcher saida = request
 					.getRequestDispatcher("Filme/frmfilme.jsp");
@@ -115,6 +117,8 @@ public class FilmeController extends HttpServlet {
 		PrintWriter saida = response.getWriter();
 		
 		FilmeDAO dao = new FilmeDAO();
+		
+		GeneroDAO daogenero = new GeneroDAO();
 
 		String id = request.getParameter("id");
 		String nome = request.getParameter("nome");
@@ -152,7 +156,7 @@ public class FilmeController extends HttpServlet {
 			filme.setTempoloc(Integer.parseInt(tempoloc));
 			filme.setQtd(Integer.parseInt(qtd));
 			filme.setPreco(new BigDecimal(preco));
-			filme.setGenero(Integer.parseInt(genero));
+			filme.setGenero(daogenero.BuscarPorId(Integer.parseInt(genero)));
 			filme.setStatus(status);
 			System.out.println(filme);
 			dao.Salvar(filme);
@@ -162,6 +166,15 @@ public class FilmeController extends HttpServlet {
 		
 		response.sendRedirect("filmecontroller.do?acao=lis");
 
+	}
+
+	@Override
+	public List<Genero> changePosition(List<Genero> list, Genero obj) {
+		int indexOf = list.indexOf(obj);
+		Genero primeiro = list.get(0);
+		list.set(0,obj);
+		list.set(indexOf, primeiro);
+		return list;
 	}
 		
 

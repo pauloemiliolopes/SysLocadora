@@ -16,6 +16,8 @@
 <a href="filmecontroller.do?acao=cad">Cadastrar Filme</a>
 <a href="filmecontroller.do?acao=lis">Listar Filmes</a></br>
 
+<a href="locacaocontroller.do?acao=cad">Locações</a></br>
+
 
 
 

@@ -20,7 +20,7 @@
 <th>Tempo Locação</th>
 <th>Quantidade</th>
 <th>Preço</th>
-<th>Id Genero</th>
+<th>Genero</th>
 <th>Status</th>
 <th>Ação</th>
 
@@ -38,7 +38,7 @@
 <td>${filme.qtd}</td>
 <td>${filme.preco}</td>
 
-<td>${filme.genero}</td>
+<td>${filme.genero.nome}</td>
 
 <td>${filme.status}</td>
 <td>

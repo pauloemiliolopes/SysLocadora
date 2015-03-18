@@ -14,26 +14,19 @@ public class Filme {
 	private int qtd;
 	private BigDecimal preco;
 	private String status;
-	private int genero;
+	private Genero genero;
 	
 	
 	
 	
 	
-	public int getGenero() {
+	public Genero getGenero() {
 		return genero;
 	}
-	public void setGenero(int genero) {
+	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-	@Override
-	public String toString() {
-		return "Filme [id=" + id + ", nome=" + nome + ", datalanc=" + datalanc
-				+ ", sinopse=" + sinopse + ", tempoloc=" + tempoloc + ", qtd="
-				+ qtd + ", preco=" + preco + ", status=" + status + ", genero="
-				+ genero + "]";
-	}
-	
+
 	
 	public Integer getId() {
 		return id;

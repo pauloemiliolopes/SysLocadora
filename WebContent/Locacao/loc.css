@@ -1,0 +1,107 @@
+*{margin:0px;}
+
+#headerwrapper {
+  border:5px solid black;
+  background: #FFFFFF;
+  width: 100%;
+  height: 200px; 
+  position: relative;	
+}
+
+ #header{
+ background:#FFFFFF;
+ width : 80%;
+ height :180px;
+ position : relative;
+ margin : 0 auto;
+ top: 10px;
+}
+
+ 
+
+
+
+
+#corpo{
+ background:#FFFFFF;
+ width :100%;
+ height : 1000px;
+ position : relative;
+}
+
+#corpo1{
+ background:#FFFFFF;
+ width :100%;
+ height : 320px;
+ position : relative;
+}
+
+
+#cadloc {
+
+ background:#FFFFFF;
+ width : 45%;
+ height :300px;
+ top: 5px;
+ left: 2%;
+ position : relative;
+ border:5px solid black;
+ float:left;
+ 
+}
+
+#lisloc {
+
+ background:#FFFFFF;
+ width : 45%;
+ height :300px;
+ top: 5px;
+ left: 6%;
+ position : relative;
+ border:5px solid black;
+ float:left;
+ 
+}
+
+
+
+
+#corpo2{
+ background:#FFFFFF;
+ width :100%;
+ height : 320px;
+ top: 2px;
+ left: 0%;
+ position : relative;
+}
+
+
+#cadiloc {
+
+ background:#FFFFFF;
+ width : 45%;
+ height :300px;
+ top: 5px;
+ left: 2%;
+ position : relative;
+ border:5px solid black;
+ float:left;
+ 
+}
+
+#lisiloc {
+
+ background:#FFFFFF;
+ width : 45%;
+ height :300px;
+ top: 5px;
+ left: 6%;
+ position : relative;
+ border:5px solid black;
+ float:left;
+ 
+}
+
+
+
+

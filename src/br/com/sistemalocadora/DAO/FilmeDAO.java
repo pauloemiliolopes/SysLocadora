@@ -16,6 +16,8 @@ import br.com.sistemalocadora.Model.Genero;
 public class FilmeDAO {
 	
 	private Connection con = Conexao.getConexao();
+	
+	private GeneroDAO daogenero = new GeneroDAO();
 
 
 	public void adiciona(Filme filme){
@@ -32,7 +34,7 @@ public class FilmeDAO {
 	       stmt.setInt(4,filme.getTempoloc());
 	       stmt.setInt(5,filme.getQtd()); 
 	       stmt.setBigDecimal(6, filme.getPreco());
-	       stmt.setInt(7, filme.getGenero());
+	       stmt.setInt(7, filme.getGenero().getId());
 	       stmt.setString(8,filme.getStatus());
 	       
 	       stmt.execute();
@@ -62,7 +64,7 @@ public class FilmeDAO {
 		       stmt.setInt(4,filme.getTempoloc());
 		       stmt.setInt(5,filme.getQtd()); 
 		       stmt.setBigDecimal(6,filme.getPreco());
-		       stmt.setInt(7, filme.getGenero());
+		       stmt.setInt(7, filme.getGenero().getId());
 		       stmt.setString(8,filme.getStatus());
 		       stmt.setInt(9, filme.getId());
 		       
@@ -131,7 +133,7 @@ public class FilmeDAO {
 		       filme.setTempoloc(rs.getInt("tempolocacao"));
 		       filme.setPreco(rs.getBigDecimal("preco"));
 		       filme.setQtd(rs.getInt("qtd"));
-		       filme.setGenero(rs.getInt("fk_genero"));
+		       filme.setGenero(daogenero.BuscarPorId(rs.getInt("fk_genero")));
 		       filme.setStatus(rs.getString("Status"));
 		       
 		       }
@@ -174,7 +176,7 @@ public class FilmeDAO {
 		       filme.setTempoloc(rs.getInt("tempolocacao"));
 		       filme.setQtd(rs.getInt("qtd"));
 		       filme.setPreco(rs.getBigDecimal("preco"));
-		       filme.setGenero(rs.getInt("fk_genero"));
+		       filme.setGenero(daogenero.BuscarPorId(rs.getInt("fk_genero")));
 		      
 		       filme.setStatus(rs.getString("Status"));
 		     

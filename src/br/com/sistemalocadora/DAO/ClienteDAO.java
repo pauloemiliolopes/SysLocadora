@@ -117,7 +117,7 @@ public class ClienteDAO {
 		       
 		       cliente.setId(rs.getInt("pk_cliente"));
 		       cliente.setNome(rs.getString("nome_cliente"));
-		       cliente.setNome(rs.getString("cpf"));
+		       cliente.setCpf(rs.getString("cpf"));
 		       cliente.setEmail(rs.getString("email"));
 		       cliente.setTelefone(rs.getString("telefone"));
 		       cliente.setEndereco(rs.getString("endereco"));
@@ -132,6 +132,48 @@ public class ClienteDAO {
 		   }
 	   
 		  return cliente;
+	   }
+
+	   
+ public List<Cliente> BuscarPorNome(String nome){
+		   
+		   String sql = "select * from clientes where nome_cliente Like ?";
+		   
+		   List<Cliente> lista = new ArrayList<Cliente>();
+		   
+		   try {
+			     
+		       PreparedStatement stmt = con.prepareStatement(sql);
+
+		       stmt.setString(1, "%"+nome+"%");
+		      
+		       stmt.execute();
+		       
+		       ResultSet rs = stmt.executeQuery();
+		       
+		       while(rs.next()){
+		       
+		       Cliente cliente = new Cliente();
+		       
+		       cliente.setId(rs.getInt("pk_cliente"));
+		       cliente.setNome(rs.getString("nome_cliente"));
+		       cliente.setCpf(rs.getString("cpf"));
+		       cliente.setEmail(rs.getString("email"));
+		       cliente.setTelefone(rs.getString("telefone"));
+		       cliente.setEndereco(rs.getString("endereco"));
+		       cliente.setStatus(rs.getString("Status"));
+		       
+		       lista.add(cliente);
+		       
+		       }
+		       
+		   } catch (SQLException e) {
+			   
+		       System.out.println("Erro ao cadastrar Cliente "+ e.getMessage());
+		       
+		   }
+	   
+		  return lista;
 	   }
 
 

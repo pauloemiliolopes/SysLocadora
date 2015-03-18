@@ -13,7 +13,7 @@
 <h1> Cadastro de Clientes</h1>
 <form action="clientecontroller.do" method="post">
  <input type="hidden" name="id" value="${requestScope.cliente.id }"/> <br />
- Descriçao: <input type="text" name="nome" value="${requestScope.cliente.nome}"/> <br />
+ Nome: <input type="text" name="nome" value="${requestScope.cliente.nome}"/> <br />
  Cpf: <input type="text" name="cpf" value="${requestScope.cliente.cpf}"/> <br />
  Email: <input type="text" name="email" value="${requestScope.cliente.email}"/> <br />
  Telefone: <input type="text" name="telefone" value="${requestScope.cliente.telefone}"/> <br />
