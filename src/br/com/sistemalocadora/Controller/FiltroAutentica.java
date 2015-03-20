@@ -43,9 +43,12 @@ public class FiltroAutentica implements Filter {
 		
 		HttpSession sessao = ((HttpServletRequest) request).getSession();
 		
-		if(sessao.getAttribute("usuLogado") != null || url.lastIndexOf("frmlogin.jsp")>-1 || url.lastIndexOf("autcontroller.do")>-1){
+		if(sessao.getAttribute("usuLogado") != null
+				|| url.lastIndexOf("frmlogin.jsp") > -1 
+				|| url.lastIndexOf("autcontroller.do") > -1
+				|| url.lastIndexOf("api") > -1){
 			
-		chain.doFilter(request, response);
+			chain.doFilter(request, response);
 		
 		}else{
 			
