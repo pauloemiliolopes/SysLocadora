@@ -12,20 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/api/fechar")
 public class FecharLocacaoService extends HttpServlet {
-	private static final long serialVersionUID = 1L;	
-	
+	private static final long serialVersionUID = 1L;
+	private Map<String, String[]> parameterMap;
+	private String string;
+	private PrintWriter saida;
 
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter saida = response.getWriter();
-		response.setContentType("application/json");	
 
-		Map<String, String[]> parameterMap = request.getParameterMap();
+		saida = response.getWriter();
+
+		response.setContentType("application/json");
+		response.setHeader("Cache-Control", "nocache");
+		response.setCharacterEncoding("utf-8");
+		response.setStatus(201);
 		
-		saida.println(GsonResponse.JsonBilder(parameterMap));
-
+		parameterMap = request.getParameterMap();
+		string = parameterMap.keySet().parallelStream().findFirst().get();
+			
+		saida.println(string);
 		saida.flush();
+		
+
 	}
 
 }
