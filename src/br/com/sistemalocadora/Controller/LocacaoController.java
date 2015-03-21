@@ -28,7 +28,7 @@ public class LocacaoController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+/*
 		System.out.println("Metodo Get");
 
 		String acao = request.getParameter("acao");
@@ -106,7 +106,10 @@ public class LocacaoController extends HttpServlet {
 			RequestDispatcher saida = request
 					.getRequestDispatcher("Locacao/frmlocacao.jsp");
 			saida.forward(request, response);
-		}
+		}*/
+		RequestDispatcher saida = request
+				.getRequestDispatcher("Locacao/locacao.jsp");
+		saida.forward(request, response);
 
 	}
 

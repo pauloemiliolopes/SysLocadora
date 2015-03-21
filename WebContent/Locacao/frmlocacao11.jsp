@@ -7,6 +7,8 @@
 <link rel="stylesheet" type="text/css" href="Locacao/loc.css" />
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<c:import url="/includes/css.jsp"></c:import>
+<c:import url="/includes/js.jsp"></c:import>
 <title>Realizar Locação</title>
 </head>
 <body>

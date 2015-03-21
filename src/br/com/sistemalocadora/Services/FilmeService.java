@@ -31,7 +31,7 @@ public class FilmeService extends HttpServlet {
 		String nome = request.getParameter("nome");
 
 		filmeDAO = new FilmeDAO();
-
+		
 		if (nome != null && nome.matches("^[A-Z][a-zA-Z '&-]*[A-Za-z]$")) {
 			filmes = filmeDAO.BuscarPorNome(nome);
 			saida.println(GsonResponse.JsonBilder(filmes));
