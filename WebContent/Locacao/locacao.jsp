@@ -7,12 +7,11 @@ pageEncoding="ISO-8859-1"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="/includes/css.jsp"></c:import>
-<c:import url="/includes/js.jsp"></c:import>
+
 <title>Locação</title>
 </head>
 <body ng-app="App" ng-controller="VendasCtrl as vm">
-
+	<c:import url="/includes/menu.jsp"></c:import>
 	<form ng-submit="vm.buscarCliente(nome)">
 		<label for="">Buscar Por Nome</label> <input
 			ng-disabled="vm.clients.length" type="text" ng-model="nome"
