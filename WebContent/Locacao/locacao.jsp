@@ -4,7 +4,6 @@ language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<html>
 <head>
 <meta charset="UTF-8">
 
@@ -12,6 +11,7 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body ng-app="App" ng-controller="VendasCtrl as vm">
 	<c:import url="/includes/menu.jsp"></c:import>
+	<div class="container">
 	<form ng-submit="vm.buscarCliente(nome)">
 		<label for="">Buscar Por Nome</label> <input
 			ng-disabled="vm.clients.length" type="text" ng-model="nome"
@@ -70,5 +70,6 @@ pageEncoding="ISO-8859-1"%>
 			</div>
 		</div>
 	</div>
+</div>
 </body>
 </html>

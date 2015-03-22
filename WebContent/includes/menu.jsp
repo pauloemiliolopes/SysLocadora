@@ -4,6 +4,7 @@
 
 <c:import url="/includes/css.jsp"></c:import>
 <c:import url="/includes/js.jsp"></c:import>
+<meta charset="UTF-8">
 <div class="container">
 <div class="btn-group">
   <button type="button" class="btn btn-primary">Inicio</button>
