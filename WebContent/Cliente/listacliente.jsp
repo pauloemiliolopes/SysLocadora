@@ -8,17 +8,17 @@
 <body>
 
 <c:import url="/includes/menu.jsp"></c:import><br />
-
-<table border='1'>
-<tr bgcolor='EAEAEA'> 
-<th>Codigo</th> 
-<th>Nome</th>
-<th>Cpf</th>
-<th>Email</th>
-<th>Telefone</th>
-<th>Endereço</th>
-<th>Status</th>
-<th>Ação</th>
+<div class="simplesTable">
+<table>
+<tr> 
+<td>Codigo</td> 
+<td>Nome</td>
+<td>Cpf</td>
+<td>Email</td>
+<td>Telefone</td>
+<td>Endereço</td>
+<td>Status</td>
+<td>Ação</td>
 
 </tr>
 
@@ -40,11 +40,10 @@
 <a href="clientecontroller.do?acao=exc&id=${cliente.id }">Excluir</a>
 |
 </td>
-
 </tr>
 	
 </c:forEach>
 </table>
-
+</div>
 </body>
 </html>

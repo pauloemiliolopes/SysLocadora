@@ -5,54 +5,53 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lista de Filmes </title>
+<title>Lista de Filmes</title>
 </head>
 <body>
 
-<c:import url="/includes/menu.jsp"></c:import><br />
+	<c:import url="/includes/menu.jsp"></c:import>
+	<br />
+	<div class="simplesTable">
+		<table border='1'>
+			<tr bgcolor='EAEAEA'>
+				<td>Codigo</td>
+				<td>Nome</td>
+				<td>Data Lançamento</td>
+				<td>Sinopse</td>
+				<td>Tempo Locação</td>
+				<td>Quantidade</td>
+				<td>Preço</td>
+				<td>Genero</td>
+				<td>Status</td>
+				<td>Ação</td>
 
-<table border='1'>
-<tr bgcolor='EAEAEA'> 
-<th>Codigo</th> 
-<th>Nome</th>
-<th>Data Lançamento</th> 
-<th>Sinopse</th>
-<th>Tempo Locação</th>
-<th>Quantidade</th>
-<th>Preço</th>
-<th>Genero</th>
-<th>Status</th>
-<th>Ação</th>
+			</tr>
 
-</tr>
-
-<c:forEach items="${requestScope.lista}" var="filme">
+			<c:forEach items="${requestScope.lista}" var="filme">
 
 
-<tr> 
-<td>${filme.id}</td> 
-<td>${filme.nome}</td>
-<td><fmt:formatDate value="${filme.datalanc.time}" pattern="dd/MM/YYYY"/></td>
-<td>${filme.sinopse}</td>
-<td>${filme.tempoloc}</td>
-<td>${filme.qtd}</td>
-<td>${filme.preco}</td>
+				<tr>
+					<td>${filme.id}</td>
+					<td>${filme.nome}</td>
+					<td><fmt:formatDate value="${filme.datalanc.time}"
+							pattern="dd/MM/YYYY" /></td>
+					<td>${filme.sinopse}</td>
+					<td>${filme.tempoloc}</td>
+					<td>${filme.qtd}</td>
+					<td>${filme.preco}</td>
 
-<td>${filme.genero.nome}</td>
+					<td>${filme.genero.nome}</td>
 
-<td>${filme.status}</td>
-<td>
-|
-<a href="filmecontroller.do?acao=alt&id=${filme.id}">Alterar</a>
-|
-<a href="filmecontroller.do?acao=exc&id=${filme.id }">Excluir</a>
-|
-</td>
+					<td>${filme.status}</td>
+					<td>| <a href="filmecontroller.do?acao=alt&id=${filme.id}">Alterar</a>
+						| <a href="filmecontroller.do?acao=exc&id=${filme.id }">Excluir</a>
+						|
+					</td>
 
-</tr>
-	
-</c:forEach>
-</table>
+				</tr>
 
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

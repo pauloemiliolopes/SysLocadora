@@ -3,42 +3,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lista de Generos </title>
+<title>Lista de Generos</title>
 </head>
 <body>
 
-<c:import url="/includes/menu.jsp"></c:import><br />
+	<c:import url="/includes/menu.jsp"></c:import>
+	<br />
+	<div class="simplesTable">
+		<table>
+			<tr>
+				<td>Codigo</td>
+				<td>Nome</td>
+				<td>Login</td>
+				<td>senha</td>
+				<td>Ação</td>
 
-<table border='1'>
-<tr bgcolor='EAEAEA'> 
-<th>Codigo</th> 
-<th>Nome</th>
-<th>Login</th>
-<th>senha</th>
-<th>Ação</th>
+			</tr>
 
-</tr>
-
-<c:forEach items="${requestScope.lista}" var="usuario">
+			<c:forEach items="${requestScope.lista}" var="usuario">
 
 
-<tr> 
-<td>${usuario.id}</td> 
-<td>${usuario.nome}</td>
-<td>${usuario.user}</td>
-<td>${usuario.senha}</td>
-<td>
-|
-<a href="usuariocontroller.do?acao=alt&id=${usuario.id}">Alterar</a>
-|
-<a href="usuariocontroller.do?acao=exc&id=${usuario.id }">Excluir</a>
-|
-</td>
+				<tr>
+					<td>${usuario.id}</td>
+					<td>${usuario.nome}</td>
+					<td>${usuario.user}</td>
+					<td>${usuario.senha}</td>
+					<td>| <a href="usuariocontroller.do?acao=alt&id=${usuario.id}">Alterar</a>
+						| <a href="usuariocontroller.do?acao=exc&id=${usuario.id }">Excluir</a>
+						|
+					</td>
 
-</tr>
-	
-</c:forEach>
-</table>
+				</tr>
 
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

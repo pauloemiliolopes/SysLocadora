@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <c:import url="/includes/css.jsp"></c:import>
 <c:import url="/includes/js.jsp"></c:import>
+<div class="container">
 <div class="btn-group">
   <button type="button" class="btn btn-primary">Inicio</button>
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -46,7 +48,7 @@
   	<li class="divider"></li>
   	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/filmecontroller.do?acao=lis'/>">Listar Filmes</a></li>
   	<li class="divider"></li>
-  	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/locacaocontroller.do'/>">Listar Filmes</a></li>
+  	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/locacaocontroller.do'/>">Locacacao	</a></li>
   </ul>
 </div>
 <div class="btn-group">
@@ -58,12 +60,12 @@
   <ul class="dropdown-menu" role="menu">
     <li role="presentation"><a role="menuitem" tabindex="-1"  href="#">Ajuda</a></li>
     <li class="divider divider-background"></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/contatos'/>">Contato</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='#'/>">Contato</a></li>
     <li class="divider"></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/login/logout'/>">Sair</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='#'/>">Sair</a></li>
   </ul>
 </div>
-
+</div>
  
  
    

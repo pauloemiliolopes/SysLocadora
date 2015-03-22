@@ -3,40 +3,38 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lista de Generos </title>
+<title>Lista de Generos</title>
 </head>
 <body>
 
-<c:import url="/includes/menu.jsp"></c:import><br />
+	<c:import url="/includes/menu.jsp"></c:import>
+	<br />
+	<div class="simplesTable">
+		<table>
+			<tr>
+				<td>Codigo</td>
+				<td>Nome</td>
+				<td>Status</td>
+				<td>Ação</td>
 
-<table border='1'>
-<tr bgcolor='EAEAEA'> 
-<th>Codigo</th> 
-<th>Nome</th>
-<th>Status</th>
-<th>Ação</th>
+			</tr>
 
-</tr>
-
-<c:forEach items="${requestScope.lista}" var="genero">
+			<c:forEach items="${requestScope.lista}" var="genero">
 
 
-<tr> 
-<td>${genero.id}</td> 
-<td>${genero.nome}</td>
-<td>${genero.status}</td>
-<td>
-|
-<a href="generocontroller.do?acao=alt&id=${genero.id}">Alterar</a>
-|
-<a href="generocontroller.do?acao=exc&id=${genero.id }">Excluir</a>
-|
-</td>
+				<tr>
+					<td>${genero.id}</td>
+					<td>${genero.nome}</td>
+					<td>${genero.status}</td>
+					<td>| <a href="generocontroller.do?acao=alt&id=${genero.id}">Alterar</a>
+						| <a href="generocontroller.do?acao=exc&id=${genero.id }">Excluir</a>
+						|
+					</td>
 
-</tr>
-	
-</c:forEach>
-</table>
+				</tr>
 
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

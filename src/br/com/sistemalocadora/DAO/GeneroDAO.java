@@ -12,7 +12,7 @@ import br.com.sistemalocadora.Model.Genero;
 
 public class GeneroDAO {
 	
-private Connection con = Conexao.getConexao();
+private Connection con = Conexao.getInstance().getConexao();
 
 
 public void adiciona(Genero genero) {

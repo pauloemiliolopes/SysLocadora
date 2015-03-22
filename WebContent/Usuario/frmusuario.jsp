@@ -10,17 +10,26 @@
 <title>Cadastro de Usuários</title>
 </head>
 <body>
-
-<c:import url="/includes/menu.jsp"></c:import><br />
-<h1> Cadastro de Usuários</h1>
-<form action="usuariocontroller.do" method="post">
- <input type="hidden" name="id" value="${requestScope.usuario.id }"/> <br />
- Nome: <input type="text" name="nome" value="${requestScope.usuario.nome}"/> <br />
- Login: <input type="text" name="user" value="${requestScope.usuario.user }"/> <br />
- Senha: <input type="text" name="senha" value="${requestScope.usuario.senha }"/> <br />
- <input type="submit" value="Gravar" />
-
-</form>
+<c:import url="/includes/menu.jsp"></c:import>
+	<div class="container">
+	<form  role="form" action="usuariocontroller.do" method="post">		
+		<h1> Cadastro de Usuários</h1>
+			<div  class="form-group">
+				<input type="hidden" name="id" value="${requestScope.usuario.id }"/>				
+					<label for="nome"> Nome: </label>
+				  	<input type="text" id="nome" class="form-control" name="nome" placeholder="Digite seu Nome" value="${requestScope.usuario.nome}"/> 
+			</div>
+			<div  class="form-group">			
+			 	<label for="user">Login: </label> 	
+			 	<input type="text" id="user" class="form-control" name="user" placeholder="Digite seu Login" value="${requestScope.usuario.user }"/> 
+			</div>
+			<div  class="form-group">			
+			 	<label for="senha">Senha:</label>
+			 	<input type="password" id="senha" class="form-control" name="senha" placeholder="Digite Sua Senha" value="${requestScope.usuario.senha }"/>
+			</div>
+			<button type="submit" class="btn btn-success">Gravar</button>
+	</form>
+	</div>
 
 </body>
 </html>
