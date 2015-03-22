@@ -18,8 +18,6 @@ import br.com.sistemalocadora.Model.Usuario;
 public class AutenticadorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-	
 	
     public AutenticadorController() {
         super();
@@ -67,10 +65,11 @@ public class AutenticadorController extends HttpServlet {
 			
 		}else{
 			
-		    String msg = "Usuï¿½rio ou Senha Invalidos!";
+		    String msg = "Usuário ou Senha Invalidos!";
 			request.setAttribute("msg", msg);
 			RequestDispatcher saida = request.getRequestDispatcher("frmlogin.jsp");
 			saida.forward(request, response);
+			
 			
 		}
 		

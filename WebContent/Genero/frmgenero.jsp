@@ -9,36 +9,30 @@
 <body>
 
 <c:import url="/includes/menu.jsp"></c:import><br />
-<h1> Cadastro de Generos</h1>
-<form action="generocontroller.do" method="post">
- <input type="hidden" name="id" value="${requestScope.genero.id }"/> <br />
- Descriçao: <input type="text" name="nome" value="${requestScope.genero.nome}"/> <br />
- 
-
- <c:if test="${genero.status == 'A' || genero.status == null}">
-
-   <input type="radio" name="status" value="A" checked="checked">
-	<label >Ativo</label><br>
-
-	<input type="radio" name="status" value="I">
-	<label >Inativo</label><br>
-
-</c:if>
-
-<c:if test="${genero.status == 'I'}">
-
-<input type="radio" name="status" value="A" >
-	<label >Ativo</label><br>
-
-	<input type="radio" name="status" value="I" checked="checked" >
-	<label >Inativo</label><br>
-
-</c:if> 
- 
-
- <input type="submit" value="Gravar" />
-
-</form>
-
+<div class="container">
+	<form  role="form" action="generocontroller.do" method="post">
+		<h1> Cadastro de Generos</h1>
+		<div  class="form-group">
+	 		<input type="hidden" name="id" value="${requestScope.genero.id }"/> <br />
+	 		<label for="nome">Descriçao </label> 
+	 		<input id="nome" type="text" class="form-control" name="nome" value="${requestScope.genero.nome}"/> <br />
+	 	</div>
+		<div  class="form-group">
+			<c:if test="${genero.status == 'A' || genero.status == null}">
+			   <input type="radio" name="status" value="A" checked="checked">
+				<label >Ativo</label>
+				<input type="radio" name="status" value="I">
+				<label >Inativo</label>
+			</c:if>
+			<c:if test="${genero.status == 'I'}">
+			<input type="radio" name="status" value="A" >
+				<label >Ativo</label>
+				<input type="radio" name="status" value="I" checked="checked" >
+				<label >Inativo</label>
+			</c:if> 
+		</div>
+		<button class="btn btn-success">Gravar</button>
+	</form>
+</div>
 </body>
 </html>

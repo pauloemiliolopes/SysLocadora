@@ -15,7 +15,7 @@ import br.com.sistemalocadora.Model.ItensLocacao;
 
 public class ItensLocacaoDAO {
 	
-	private Connection con = Conexao.getConexao();
+	private Connection con = Conexao.getInstance().getConexao();
 
 
 	public void adiciona(ItensLocacao itenslocacao){

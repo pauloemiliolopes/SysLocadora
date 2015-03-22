@@ -9,55 +9,60 @@
 </head>
 <body>
 
-<c:import url="/includes/menu.jsp"></c:import><br />
+<c:import url="/includes/menu.jsp"></c:import>
 
-<h1> Cadastro de Filmes</h1>
-<form action="filmecontroller.do" method="post">
+<div class="container">
+<form role="form" action="filmecontroller.do" method="post">
+	<h1> Cadastro de Filmes</h1>
+	<div class="form-group">	
+		 <input type="hidden" name="id" value="${requestScope.filme.id }"/> 
+		 <label for="nome">Nome</label>
+		 <input id="nome" type="text" class="form-control" name="nome" value="${requestScope.filme.nome}"/> 
+	 </div>
+	 <div class="form-group"> 
+ 		<label for="data">Data Lançamento</label>
+ 		<input id="data" type="text" class="form-control" name="lancamento" value="<fmt:formatDate value="${requestScope.filme.datalanc.time}" pattern="dd/MM/YYYY"/>"/> 
+ 	</div>
+ 	<div class="form-group"> 
+ 	<label for="data"> Sinopse </label>
+ 	 <input id="data" type="text" class="form-control" name="sinopse" value="${requestScope.filme.sinopse}"/> 
+ 	</div>
+ 	<div class="form-group">
+ 		<label for="tempo"> Tempo de Locação</label>
+ 		<input id="tempo" type="text" class="form-control" name="tempolocacao" value="${requestScope.filme.tempoloc}"/>
+ 	</div>
+ 	<div class="form-group"> 
+ 		<label for="qtd"> Quantidade</label>
+ 		<input id="qtd" type="text" class="form-control" name="qtd" value="${requestScope.filme.qtd}"/>
+ 	</div>
+ 	<div class="form-group"> 
+ 		<label for="preco" >Preço</label>
+  		<input id="preco" type="text" class="form-control" name="preco" value="${requestScope.filme.preco}"/> 
+ 	</div>
 
- <input type="hidden" name="id" value="${requestScope.filme.id }"/> <br />
- Nome: <input type="text" name="nome" value="${requestScope.filme.nome}"/> <br />
- Data Lançamento: <input type="text" name="lancamento" value="<fmt:formatDate value="${requestScope.filme.datalanc.time}" pattern="dd/MM/YYYY"/>"/> <br />
- Sinopse: <input type="text" name="sinopse" value="${requestScope.filme.sinopse}"/> <br />
- Tempo de Locação: <input type="text" name="tempolocacao" value="${requestScope.filme.tempoloc}"/> <br />
- Quantidade: <input type="text" name="qtd" value="${requestScope.filme.qtd}"/> <br />
- Preço: <input type="text" name="preco" value="${requestScope.filme.preco}"/> <br />
- 
-
-
- Selecione Genero : <select name="generos">
-<c:forEach items="${requestScope.listaGenero}" var="genero">
-
-<option value="${genero.id}">${genero.nome}</option>
-
-</c:forEach> 
-</select><br/>
-
-
-
-<c:if test="${filme.status == 'A' || filme.status == null}">
-
-   <input type="radio" name="status" value="A" checked="checked">
-	<label >Ativo</label><br>
-
-	<input type="radio" name="status" value="I">
-	<label >Inativo</label><br>
-
-</c:if>
-
-<c:if test="${filme.status == 'I'}">
-
-<input type="radio" name="status" value="A" >
-	<label >Ativo</label><br>
-
-	<input type="radio" name="status" value="I" checked="checked" >
-	<label >Inativo</label><br>
-
-</c:if> 
-	
- <input type="submit" value="Gravar"/>
-
-</form>
-
-
+	<div class="form-group">
+	 	<label for="preco" >Selecione Genero :</label>
+	 	<select name="generos">
+		<c:forEach items="${requestScope.listaGenero}" var="genero">
+		<option value="${genero.id}">${genero.nome}</option>
+		</c:forEach> 
+		</select>
+	<c:if test="${filme.status == 'A' || filme.status == null}">
+	   <input type="radio" name="status" value="A" checked="checked">
+		<label >Ativo</label>
+		<input type="radio" name="status" value="I">
+		<label >Inativo</label>
+	</c:if>
+	<c:if test="${filme.status == 'I'}">
+	<input type="radio" name="status" value="A" >
+		<label >Ativo</label>
+		<input type="radio" name="status" value="I" checked="checked" >
+		<label >Inativo</label>
+	</c:if> 
+	<button class="btn btn-success">Gravar</button>
+	</div>
+		
+ </form>
+</div>
 </body>
 </html>

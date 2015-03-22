@@ -14,7 +14,7 @@ import br.com.sistemalocadora.Model.Usuario;
 public class UsuarioDAO {
 
 	
-	private Connection con = Conexao.getConexao();
+	private Connection con = Conexao.getInstance().getConexao();
 
 
 	public void adiciona(Usuario usuario) {

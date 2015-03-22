@@ -14,7 +14,7 @@ import br.com.sistemalocadora.Model.Cliente;
 public class ClienteDAO {
 	
 	
-	private Connection con = Conexao.getConexao();
+	private Connection con = Conexao.getInstance().getConexao();
 
 
 	public void adiciona(Cliente cliente){

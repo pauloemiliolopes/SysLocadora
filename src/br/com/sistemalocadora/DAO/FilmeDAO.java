@@ -14,7 +14,7 @@ import br.com.sistemalocadora.Model.Filme;
 
 public class FilmeDAO {
 	
-	private Connection con = Conexao.getConexao();
+	private Connection con = Conexao.getInstance().getConexao();
 	
 	private GeneroDAO daogenero = new GeneroDAO();
 

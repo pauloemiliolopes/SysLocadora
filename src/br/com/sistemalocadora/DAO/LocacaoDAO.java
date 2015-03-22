@@ -15,7 +15,7 @@ import br.com.sistemalocadora.Model.Locacao;
 public class LocacaoDAO {
 	
 	
-	private Connection con = Conexao.getConexao();
+	private Connection con = Conexao.getInstance().getConexao();
 	
 	private ClienteDAO daocliente = new ClienteDAO();
 
