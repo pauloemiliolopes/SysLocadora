@@ -32,6 +32,8 @@ public class ClienteController extends HttpServlet {
 		System.out.println("Metodo Get");
 
 		String acao = request.getParameter("acao");
+		
+		String buscarcli = request.getParameter("buscarcli");
 
 		ClienteDAO dao = new ClienteDAO();
 
@@ -84,6 +86,21 @@ public class ClienteController extends HttpServlet {
 					.getRequestDispatcher("Cliente/listacliente.jsp");
 			saida.forward(request, response);
 		}
+		
+		
+		if (buscarcli != null) {
+
+			List<Cliente> lista = dao.BuscarPorNome(buscarcli);
+
+			request.setAttribute("lista", lista);
+
+			RequestDispatcher saida = request
+					.getRequestDispatcher("Cliente/listacliente.jsp");
+			saida.forward(request, response);
+
+		}
+
+		
 	}
 
 	

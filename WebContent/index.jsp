@@ -11,9 +11,12 @@
 	<c:import url="/includes/menu.jsp"></c:import>
 	
 	<div class="container">
-	<h1>Sistema de Automação de Locadoras de Filmes</h1>
+	<h1><center>Sistema de Automação de Locadoras de Filmes</center></h1>
+	
+	<center> <img src="telainicial.bmp">
+	</center> <br />
 
-	<span> Bem Vindo Sr : ${sessionScope.usuLogado.nome} </span>
+	<span> Bem Vindo , ${sessionScope.usuLogado.nome} </span>
 	</div>
 </body>
 </html>

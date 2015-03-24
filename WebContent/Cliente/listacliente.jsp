@@ -8,6 +8,14 @@
 <body>
 
 <c:import url="/includes/menu.jsp"></c:import><br />
+<br/>
+
+<form action="clientecontroller.do" method="get">
+					<label>Buscar Cliente por Nome : </label>
+					<input type="text" name="buscarcli"/>
+					<input type="submit" value="Buscar">
+				</form> <br/>
+
 <div class="simplesTable">
 <table>
 <tr> 

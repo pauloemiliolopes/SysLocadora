@@ -55,12 +55,10 @@ public class FiltroAutentica implements Filter {
 		return false;
 	}
 
-	@Override
 	public void destroy() {
 
 	}
 
-	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
 

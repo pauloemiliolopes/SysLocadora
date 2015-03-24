@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.sistemalocadora.DAO.FilmeDAO;
 import br.com.sistemalocadora.DAO.GeneroDAO;
+import br.com.sistemalocadora.Model.Cliente;
 import br.com.sistemalocadora.Model.Filme;
 import br.com.sistemalocadora.Model.Genero;
 
@@ -36,6 +37,8 @@ public class FilmeController extends HttpServlet implements
 		System.out.println("Metodo Get");
 
 		String acao = request.getParameter("acao");
+		
+		String buscarfil = request.getParameter("buscarfil");
 
 		FilmeDAO dao = new FilmeDAO();
 
@@ -105,6 +108,20 @@ public class FilmeController extends HttpServlet implements
 					.getRequestDispatcher("Filme/listafilme.jsp");
 			saida.forward(request, response);
 		}
+		
+		if (buscarfil != null) {
+
+			List<Filme> lista = dao.BuscarPorNome(buscarfil);
+
+			request.setAttribute("lista", lista);
+
+			RequestDispatcher saida = request
+					.getRequestDispatcher("Filme/listafilme.jsp");
+			saida.forward(request, response);
+
+		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request,
@@ -162,7 +179,6 @@ public class FilmeController extends HttpServlet implements
 
 	}
 
-	@Override
 	public List<Genero> changePosition(List<Genero> list, Genero obj) {
 		int indexOf = list.indexOf(obj);
 		Genero primeiro = list.get(0);

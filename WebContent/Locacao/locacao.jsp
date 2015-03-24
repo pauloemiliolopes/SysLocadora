@@ -11,8 +11,11 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body ng-app="App" ng-controller="VendasCtrl as vm">
 	<c:import url="/includes/menu.jsp"></c:import>
+	<h2> Realizar Locação </h2> <br />
+	    
 	<div class="container">
 	<form ng-submit="vm.buscarCliente(nome)">
+	<h3> Incluir Cliente </h3><br />
 		<label for="">Buscar Por Nome</label> <input
 			ng-disabled="vm.clients.length" type="text" ng-model="nome"
 			required>
@@ -28,6 +31,7 @@ pageEncoding="ISO-8859-1"%>
 			<td>{{cliente.cpf}}</td>
 		</tr>
 	</table>
+	<h3> Incluir Filmes </h3><br />
 	<div ng-if="vm.clients.length">
 		<form ng-submit="vm.buscarFilme(filme)">
 			<label for="">Buscar Por Nome</label> <input type="text"

@@ -11,6 +11,15 @@
 
 	<c:import url="/includes/menu.jsp"></c:import>
 	<br />
+	
+	<br/>
+
+<form action="filmecontroller.do" method="get">
+					<label>Buscar Filme por Nome : </label>
+					<input type="text" name="buscarfil"/>
+					<input type="submit" value="Buscar">
+				</form> <br/>
+	
 	<div class="simplesTable">
 		<table border='1'>
 			<tr bgcolor='EAEAEA'>
