@@ -1,6 +1,14 @@
 package br.com.sistemalocadora.Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,16 +17,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.sistemalocadora.DAO.ClienteDAO;
 import br.com.sistemalocadora.DAO.FilmeDAO;
+import br.com.sistemalocadora.DAO.ItensLocacaoDAO;
 import br.com.sistemalocadora.DAO.LocacaoDAO;
 import br.com.sistemalocadora.Model.Cliente;
 import br.com.sistemalocadora.Model.Filme;
+import br.com.sistemalocadora.Model.Genero;
+import br.com.sistemalocadora.Model.ItensLocacao;
 import br.com.sistemalocadora.Model.Locacao;
 
 @WebServlet("/locacaocontroller.do")
-public class LocacaoController extends HttpServlet {
+public class LocacaoController extends HttpServlet implements
+		ChagePositionGenero<Cliente> {
 	private static final long serialVersionUID = 1L;
 
 	public LocacaoController() {
@@ -28,94 +41,167 @@ public class LocacaoController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-/*
+
 		System.out.println("Metodo Get");
 
 		String acao = request.getParameter("acao");
-		String nomeCliente = request.getParameter("buscar");
-		String nomeFilme = request.getParameter("buscarfilme");
-		LocacaoDAO dao = new LocacaoDAO();
-		FilmeDAO filmeDao = new FilmeDAO();
 
-		ClienteDAO daocliente = new ClienteDAO();
+		String buscarcli = request.getParameter("buscarcli");
 
-		if (acao != null && acao.equals("exc")) {
+		if (buscarcli != null) {
 
-			String id = request.getParameter("id");
+			ClienteDAO clidao = new ClienteDAO();
 
-			Locacao locacao = new Locacao();
-			locacao.setId(Integer.parseInt(id));
-			dao.excluir(locacao);
+			List<Cliente> listaCliente = clidao.BuscarPorNome(buscarcli);
 
-			response.sendRedirect("locacaocontroller.do?acao=cad");
+			Date data = new Date();
 
-		}
+			data.getTime();
 
-		if (acao != null && acao.equals("alt")) {
+			System.out.println(data);
 
-			String id = request.getParameter("id");
-
-			Locacao locacao = dao.BuscarPorId(Integer.parseInt(id));
-
-			request.setAttribute("locacao", locacao);
-
-			List<Cliente> listaCliente = daocliente.buscarTodos();
+			request.setAttribute("data", data);
 
 			request.setAttribute("listaCliente", listaCliente);
 
-			RequestDispatcher saida = request
+			RequestDispatcher saida1 = request
 					.getRequestDispatcher("Locacao/frmlocacao.jsp");
-			saida.forward(request, response);
+			saida1.forward(request, response);
 
 		}
 
 		if (acao != null && acao.equals("cad")) {
 
-			List<Cliente> listaCliente = daocliente.buscarTodos();
+			Locacao loc = new Locacao();
+
+			LocacaoDAO locdao = new LocacaoDAO();
+
+			ClienteDAO clidao = new ClienteDAO();
+
+			FilmeDAO filmedao = new FilmeDAO();
+
+			Date data = new Date();
+
+			data.getTime();
+
+			System.out.println(data);
+
+			request.setAttribute("data", data);
+
+			List<Cliente> listaCliente = clidao.buscarTodos();
 
 			request.setAttribute("listaCliente", listaCliente);
 
-			List<Locacao> lista = dao.buscarTodos();
+			List<Filme> listaFilme = filmedao.buscarTodos();
 
-			request.setAttribute("lista", lista);
+			request.setAttribute("listaFilme", listaFilme);
 
-			RequestDispatcher saida = request
+			RequestDispatcher saida1 = request
 					.getRequestDispatcher("Locacao/frmlocacao.jsp");
-			saida.forward(request, response);
+			saida1.forward(request, response);
 
 		}
 
-		if (nomeCliente != null) {
-
-			List<Cliente> listaCliente = daocliente.BuscarPorNome(nomeCliente);
-
-			request.setAttribute("listaCliente", listaCliente);
-
-			RequestDispatcher saida = request
-					.getRequestDispatcher("Locacao/frmlocacao.jsp");
-			saida.forward(request, response);
-
-		}
-
-		if (nomeFilme != null) {
-
-			List<Filme> listFilme = filmeDao.BuscarPorNome(nomeFilme);
-
-			request.setAttribute("listfilme", listFilme);
-
-			RequestDispatcher saida = request
-					.getRequestDispatcher("Locacao/frmlocacao.jsp");
-			saida.forward(request, response);
-		}*/
-		RequestDispatcher saida = request
-				.getRequestDispatcher("Locacao/locacao.jsp");
-		saida.forward(request, response);
-
+		/*
+		 * RequestDispatcher saida = request
+		 * .getRequestDispatcher("Locacao/locacao.jsp"); saida.forward(request,
+		 * response);
+		 */
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		String acao = request.getParameter("acao");
+
+		Locacao loc = new Locacao();
+
+		LocacaoDAO locdao = new LocacaoDAO();
+
+		ClienteDAO clidao = new ClienteDAO();
+
+		FilmeDAO filmedao = new FilmeDAO();
+
+		ItensLocacao itensloc = new ItensLocacao();
+
+		ItensLocacaoDAO itenslocdao = new ItensLocacaoDAO();
+
+		loc.setValor(null);
+
+		if (acao != null && acao.equals("cadvenda")) {
+
+			PrintWriter saida = response.getWriter();
+
+			String idcliente = request.getParameter("clientes");
+
+			String dataloc = request.getParameter("datalocacao");
+
+			// String valor = request.getParameter("valor");
+
+			loc.setCliente(clidao.BuscarPorId(Integer.parseInt(idcliente)));
+
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
+			try {
+				if (dataloc
+						.matches("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$")) {
+					cal.setTime(formate.parse(dataloc));
+				} else {
+					saida.println("Data fora do Padra (dd/MM/YYYY)!");
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			loc.setDataloc(cal);
+			loc.setValor(new BigDecimal("0"));
+			
+			loc.setStatus("A");
+			
+			
+
+			locdao.adiciona(loc);
+
+			List<Cliente> listaCliente = clidao.buscarTodos();
+
+			for (Cliente g : listaCliente) {
+				if (g.getNome().equals(loc.getCliente().getNome())) {
+					listaCliente = changePosition(listaCliente, g);
+				}
+			}
+
+			request.setAttribute("listaCliente", listaCliente);
+			
+			HttpSession secaolocacao = request.getSession();
+			
+			secaolocacao.setAttribute("locacao", loc);
+
+			List<Filme> listaFilme = filmedao.buscarTodos();
+
+			request.setAttribute("listaFilme", listaFilme);
+
+			RequestDispatcher saida1 = request
+					.getRequestDispatcher("Locacao/ItensLocacao.jsp");
+			saida1.forward(request, response);
+
+		}
+
+	}
+
+	public List<Cliente> changePosition(List<Cliente> list, Cliente obj) {
+		int indexOf = list.indexOf(obj);
+		Cliente primeiro = list.get(0);
+		list.set(0, obj);
+		list.set(indexOf, primeiro);
+		return list;
+	}
+
+	public List<Filme> changePosition(List<Filme> list, Filme obj) {
+		int indexOf = list.indexOf(obj);
+		Filme primeiro = list.get(0);
+		list.set(0, obj);
+		list.set(indexOf, primeiro);
+		return list;
 	}
 
 }

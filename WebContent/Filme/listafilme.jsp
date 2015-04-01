@@ -17,7 +17,7 @@
 <form action="filmecontroller.do" method="get">
 					<label>Buscar Filme por Nome : </label>
 					<input type="text" name="buscarfil"/>
-					<input type="submit" value="Buscar">
+					<input type="submit" class="btn btn-success" value="Buscar">
 				</form> <br/>
 	
 	<div class="simplesTable">

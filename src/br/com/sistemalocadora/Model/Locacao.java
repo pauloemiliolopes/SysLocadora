@@ -9,6 +9,7 @@ public class Locacao {
 	private Cliente cliente;
 	private Calendar dataloc;
 	private BigDecimal valor;
+	private String status;
 	
 	
 	
@@ -35,6 +36,12 @@ public class Locacao {
 	}
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

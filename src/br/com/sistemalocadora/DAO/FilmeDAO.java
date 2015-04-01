@@ -1,5 +1,6 @@
 package br.com.sistemalocadora.DAO;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import br.com.sistemalocadora.JDBC.Conexao;
 import br.com.sistemalocadora.Model.Filme;
+import br.com.sistemalocadora.Model.ItensLocacao;
 
 public class FilmeDAO {
 	
@@ -257,6 +259,32 @@ public class FilmeDAO {
 		  return lista;
 	  
 	}
+	
+	public void alterarEstoque(int estoque, int id) {
+
+		String sql = "update filmes set qtd=? where pk_filme=?";
+
+		try {
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, estoque);
+			stmt.setInt(2, id);
+
+			stmt.execute();
+			stmt.close();
+
+			System.out.println("Valor Estoque Atualizado!");
+
+		} catch (SQLException e) {
+
+			System.out.println("Erro ao Atualizar Locacao " + e.getMessage());
+
+		}
+
+	}
+
+
 
 	 
 }

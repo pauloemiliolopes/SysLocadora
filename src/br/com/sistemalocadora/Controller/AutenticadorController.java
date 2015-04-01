@@ -59,7 +59,8 @@ public class AutenticadorController extends HttpServlet {
 			
 			HttpSession sessao = request.getSession();
 			sessao.setMaxInactiveInterval(3000);
-			sessao.setAttribute("usuLogado", usuretorno);
+			sessao.setAttribute("usuLogado", usuretorno);			
+			response.setContentType("text/html;charset=UTF-8");  
 			
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 			
@@ -67,6 +68,7 @@ public class AutenticadorController extends HttpServlet {
 			
 		    String msg = "Usuário ou Senha Invalidos!";
 			request.setAttribute("msg", msg);
+			
 			RequestDispatcher saida = request.getRequestDispatcher("frmlogin.jsp");
 			saida.forward(request, response);
 			

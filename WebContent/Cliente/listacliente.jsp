@@ -12,8 +12,8 @@
 
 <form action="clientecontroller.do" method="get">
 					<label>Buscar Cliente por Nome : </label>
-					<input type="text" name="buscarcli"/>
-					<input type="submit" value="Buscar">
+					<input type="text"  name="buscarcli"/>
+					<input type="submit" class="btn btn-success" value="Buscar">
 				</form> <br/>
 
 <div class="simplesTable">

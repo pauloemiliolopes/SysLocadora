@@ -6,9 +6,10 @@ public class ItensLocacao {
 	
 	private Integer id;
 	private int locacao;
-	private int filme;
+	private Filme filme;
 	private Calendar datadevolucao;
 	private Calendar dataprevdevolucao;
+	private int qtd;
 	
 	
 	public Integer getId() {
@@ -23,10 +24,10 @@ public class ItensLocacao {
 	public void setLocacao(int locacao) {
 		this.locacao = locacao;
 	}
-	public int getFilme() {
+	public Filme getFilme() {
 		return filme;
 	}
-	public void setFilme(int filme) {
+	public void setFilme(Filme filme) {
 		this.filme = filme;
 	}
 	public Calendar getDatadevolucao() {
@@ -40,6 +41,12 @@ public class ItensLocacao {
 	}
 	public void setDataprevdevolucao(Calendar dataprevdevolucao) {
 		this.dataprevdevolucao = dataprevdevolucao;
+	}
+	public int getQtd() {
+		return qtd;
+	}
+	public void setQtd(int qtd) {
+		this.qtd = qtd;
 	}
 	
 
