@@ -15,7 +15,7 @@
 				<td>Codigo</td>
 				<td>Nome</td>
 				<td>Login</td>
-				<td>senha</td>
+				
 				<td>Ação</td>
 
 			</tr>
@@ -27,7 +27,7 @@
 					<td>${usuario.id}</td>
 					<td>${usuario.nome}</td>
 					<td>${usuario.user}</td>
-					<td>${usuario.senha}</td>
+					
 					<td>| <a href="usuariocontroller.do?acao=alt&id=${usuario.id}">Alterar</a>
 						| <a href="usuariocontroller.do?acao=exc&id=${usuario.id }">Excluir</a>
 						|

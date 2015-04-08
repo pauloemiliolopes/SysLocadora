@@ -22,7 +22,7 @@ public class LocacaoDAO {
 
 	public Locacao adiciona(Locacao locacao) {
 
-		String sql = "insert into locacoes (fk_cliente,data_locacao,valor,status) values (?,?,?,?)";
+		String sql = "insert into locacoes (fk_cliente,data_locacao,valor,Status) values (?,?,?,?)";
 
 		try {
 
@@ -33,6 +33,7 @@ public class LocacaoDAO {
 			stmt.setTimestamp(2, new Timestamp(locacao.getDataloc()
 					.getTimeInMillis()));
 			stmt.setBigDecimal(3, locacao.getValor());
+			stmt.setString(4, locacao.getStatus());
 
 			stmt.execute();
 
@@ -235,11 +236,51 @@ public class LocacaoDAO {
 
 	}
 	
+	public List<Locacao> buscarTodosAbertos() {
+
+		String sql = "select * from locacoes where status='A'";
+
+		List<Locacao> lista = new ArrayList<Locacao>();
+
+		try {
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Locacao locacao = new Locacao();
+
+				locacao.setId(rs.getInt("pk_locacao"));
+				locacao.setCliente(daocliente.BuscarPorId(rs
+						.getInt("fk_cliente")));
+				Calendar ca = Calendar.getInstance();
+				ca.setTimeInMillis((rs.getTimestamp("data_locacao").getTime()));
+				locacao.setDataloc(ca);
+				locacao.setValor(rs.getBigDecimal("valor"));
+
+				lista.add(locacao);
+
+			}
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return lista;
+
+	}
+	
+	
+	
 	
 	public List<Locacao> buscarporNomeCli(String nome) {
 
-		String sql = "select * from locacoes join clientes "
-				+ "on pk_cliente=fk_cliente where nome_cliente like ?";
+		String sql = "select * from locacoes l join clientes  c on pk_cliente=fk_cliente where nome_cliente like ? and l.status='A'";
 
 		List<Locacao> lista = new ArrayList<Locacao>();
 
@@ -360,6 +401,8 @@ public class LocacaoDAO {
 
 	}
 
+	
+	
 	
 	
 	

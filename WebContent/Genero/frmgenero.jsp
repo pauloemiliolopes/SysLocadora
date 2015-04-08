@@ -14,8 +14,9 @@
 		<h1> Cadastro de Generos</h1>
 		<div  class="form-group">
 	 		<input type="hidden" name="id" value="${requestScope.genero.id }"/> <br />
-	 		<label for="nome">Descriçao </label> 
-	 		<input id="nome" type="text" class="form-control" name="nome" value="${requestScope.genero.nome}"/> <br />
+	 		<label for="nome">Descriçao :</label> 
+	 		<input id="nome" type="text" size="40" class="form-control" name="nome" value="${requestScope.genero.nome}"/> <br />
+	 		<br/>
 	 	</div>
 		<div  class="form-group">
 			<c:if test="${genero.status == 'A' || genero.status == null}">
@@ -31,6 +32,7 @@
 				<label >Inativo</label>
 			</c:if> 
 		</div>
+		<br/>
 		<button class="btn btn-success">Gravar</button>
 	</form>
 </div>

@@ -6,32 +6,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lista de Locações</title>
+<title>Locações em Aberto</title>
+<style media="print">
+.botao {
+display: none;
+}
+</style>
 </head>
 <body>
+<c:import url="/includes/css.jsp"></c:import>
+<c:import url="/includes/js.jsp"></c:import>
+<br/>
+<h3>Relatório de Locações Abertas</h3>
 
+<br/>
 
-	<c:import url="/includes/menu.jsp"></c:import>
-	<br />
-	
-	<h1>Buscar Locação</h1>
-	
-	<br/>
-
-<form action="itenscontroller.do" method="get">
-					<label>Digite o Nome do Cliente : </label>
-					<input type="text" name="buscarcliente"/>
-					<input type="submit" class="btn btn-success" value="Buscar">
-				</form> <br/>
-	
-	<div class="simplesTable">
-		<table border='1'>
+		<table class="table table-hover" >
 			<tr bgcolor='EAEAEA'>
 				<td>Codigo</td>
 				<td>Nome Cliente</td>
 				<td>Valor</td>
 				<td>Data Locação</td>
-				<td>Ação</td>
+				
 
 			</tr>
 
@@ -45,15 +41,16 @@
 					<td><fmt:formatDate value="${locacao.dataloc.time}"
 							pattern="dd/MM/YYYY" /></td>
 			
-					<td><a href="itenscontroller.do?acao=dev&id=${locacao.id}"><button class="btn btn-danger" >Realizar Devolução</button></a>
-					
-					</td>
+				
 
 				</tr>
 
 			</c:forEach>
 		</table>
-	</div>
+		<input type="button" class="botao" name="print" value="Imprimir" onClick="javascript:window.print();">
+		<input type="button" class="botao" name="print" value="Voltar" onClick="history.back();">
+
+
 
 </body>
 </html>

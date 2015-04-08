@@ -62,6 +62,7 @@ public class ItensController extends HttpServlet {
 	
     
 	
+	@SuppressWarnings("deprecation")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
@@ -120,11 +121,8 @@ public class ItensController extends HttpServlet {
         	  
         	  Locacao loc = locdao.BuscarPorId(Integer.parseInt(id));
         	  
-        	  System.out.println(loc.getId());
-        	  
         	  List<ItensLocacao> listaitens = itenslocdao.buscarporLocacao(Integer.parseInt(id));
-        	  
-        	  
+        	          	  
         	  request.setAttribute("listaItens", listaitens);
         	  
         	  request.setAttribute("locacao", loc);
@@ -141,46 +139,43 @@ public class ItensController extends HttpServlet {
           
           if (acao != null && acao.equals("devitem")) {
         	  
+        	
         	String id = request.getParameter("id");
-        	  
-        	ItensLocacao itenslocacao = itenslocdao.BuscarPorId(Integer.parseInt(id));
+     
+        	 
+       	     // atribuir data da devolução do item
         	
-        	 Locacao loc = locdao.BuscarPorId(itenslocacao.getLocacao());
-        
-        	 List<ItensLocacao> listaitens = itenslocdao.buscarporLocacao(Integer.parseInt(id));
-        	 
-        	 System.out.println(itenslocacao.getDatadevolucao());
-        	 if(itenslocacao.getDatadevolucao().equals(null)){
+        	 Timestamp dataDeHoje = new Timestamp(System.currentTimeMillis()); 
         		 
-        		 Timestamp dataDeHoje = new Timestamp(System.currentTimeMillis()); 
+        	 System.out.println(dataDeHoje);
             	 
-            	 itenslocdao.GravaDataDevolucao(dataDeHoje, Integer.parseInt(id));
-            	 
-            	 
-            	
+             itenslocdao.GravaDataDevolucao(dataDeHoje, Integer.parseInt(id));
+             
+             ItensLocacao itenslocacao = itenslocdao.BuscarPorId(Integer.parseInt(id));
+             
+             //devolvendo quantidade ao item
+             
+             Filme filme1 = filmedao.BuscarPorId(itenslocacao.getFilme().getId());
+ 		    
+     		
+ 			int estoque = (filme1.getQtd() + itenslocacao.getQtd());
+ 			
+ 			
+ 			filmedao.alterarEstoque(estoque, filme1.getId());
+ 		
+           
+            
+            request.setAttribute("itenslocacao", itenslocacao);
+             
+            
+            RequestDispatcher saida = request.getRequestDispatcher("Locacao/frmdevitem.jsp");
+				
+      		saida.forward(request, response);
+       		  
+        		 
         	
-        	 
-        	 }else{
-        		 
-        		 
-        		 String msg = "Item já devolvido, devolva todos os filmes e depois finalize a devolução!";
-       		  request.setAttribute("msg", msg);
-       		  
-       		  
-       	
-        		 
-        		 
-        	 }
-        	 
-        	 
-        	 
-        	 request.setAttribute("listaItens", listaitens);
-          	  
-          	  request.setAttribute("locacao", loc);
     
-  			 RequestDispatcher saida1 = request.getRequestDispatcher("Locacao/frmdevolucao.jsp");
-  				
-  			saida1.forward(request, response);
+  		 
     
 			
 		 }
@@ -190,12 +185,29 @@ public class ItensController extends HttpServlet {
 		if (acao != null && acao.equals("listloc")) {
 			
 			
-			List<Locacao> listalocacoes = locdao.buscarTodos();
+			List<Locacao> listalocacoes = locdao.buscarTodosAbertos();
 
 			request.setAttribute("listalocacoes", listalocacoes);
 
 			 
 			 RequestDispatcher saida1 = request.getRequestDispatcher("Locacao/listalocacao.jsp");
+				
+			    saida1.forward(request, response);
+			
+			
+			
+			
+		}
+		
+    if (acao != null && acao.equals("relloc")) {
+			
+			
+			List<Locacao> listalocacoes = locdao.buscarTodosAbertos();
+
+			request.setAttribute("listalocacoes", listalocacoes);
+
+			 
+			 RequestDispatcher saida1 = request.getRequestDispatcher("Relatorios/locacoesaberta.jsp");
 				
 			    saida1.forward(request, response);
 			
@@ -262,6 +274,7 @@ public class ItensController extends HttpServlet {
 		}
 		
 if(acao != null && acao.equals("excitem")){
+	
 			
 			String id = request.getParameter("id");
 			
@@ -273,6 +286,7 @@ if(acao != null && acao.equals("excitem")){
 			Integer idloc = locacao.getId();
 			
             BigDecimal valor = locacao.getValor();
+            
 			
             System.out.println(locacao.getValor());
             
@@ -280,15 +294,9 @@ if(acao != null && acao.equals("excitem")){
       
 			Filme filme = filmedao.BuscarPorId(itenslocacao.getFilme().getId());
 			
-			BigDecimal item = filme.getPreco();
+			BigDecimal item = itenslocacao.getValoritem();
 			
-			
-			BigDecimal qtd = new BigDecimal(itenslocacao.getQtd());
-			 
-			
-			
-			item = item.multiply(qtd);
-			
+		
 		
 			valor = valor.subtract(item);
 			
@@ -297,6 +305,16 @@ if(acao != null && acao.equals("excitem")){
 			
 			
 		    locdao.alterarValor(valor, idloc);
+		    
+		    //Voltando o estoque do item
+		    
+		    Filme filme1 = filmedao.BuscarPorId(itenslocacao.getFilme().getId());
+		    
+		
+			int estoque = (filme1.getQtd() + itenslocacao.getQtd());
+			
+			
+			filmedao.alterarEstoque(estoque, filme1.getId());
 		    
 			
 		    itenslocdao.excluir(Integer.parseInt(id));
@@ -358,9 +376,116 @@ if(acao != null && acao.equals("voltar")){
 			
 		}
 
+    if(acao != null && acao.equals("financeiro")){
+    	
+    	String id = request.getParameter("id");
+    	
+    	String fpgto = request.getParameter("fpgto");
+    	
+    	ItensLocacao item = itenslocdao.BuscarPorId(Integer.parseInt(id));
+    	
+    	if(item.getDatadevolucao().getTimeInMillis() <= item.getDataprevdevolucao().getTimeInMillis()){
+    		
+    	itenslocdao.FinalizarFinaceiro(fpgto,item.getId());
+    	
+       	 itenslocdao.FinalizarLocacao("F", item.getId());
+       	 
+       	 Locacao loc = locdao.BuscarPorId(item.getLocacao());
+   	  
+   	  List<ItensLocacao> listaitens = itenslocdao.buscarporLocacao(item.getLocacao());
+   	  
+   	  
+   	  request.setAttribute("listaItens", listaitens);
+   	  
+   	  request.setAttribute("locacao", loc);
+   	  
+      	 
+   	RequestDispatcher saida1 = request.getRequestDispatcher("Locacao/frmdevolucao.jsp");
+   	
+   	saida1.forward(request, response);
+   	
+    		
+    		
+    	}else{
+    		
+    		int reloc = item.getDatadevolucao().getTime().compareTo(item.getDataprevdevolucao().getTime());
+    		
+    		if(reloc <= 1 && item.getStatus().equals("A")){
+    			
+    			System.out.println("Valor status"+item.getStatus());
+    		
+    			    Locacao loc = locdao.BuscarPorId(item.getLocacao());
+			
+    				BigDecimal valoritem = item.getValoritem();
+    				
+    				BigDecimal relocacao = new BigDecimal(reloc);
+    				
+    			    BigDecimal valor = loc.getValor();
+    			    
+    			    System.out.println(valor);
+    			    
+    			    valor = valor.subtract(valoritem);
+    			   
+    				valoritem = valoritem.add(valoritem.multiply(relocacao));
+    				
+    				valor = valor.add(valoritem);
+    				
+    				locdao.alterarValor(valor, loc.getId());
+    				
+    				System.out.println(valoritem +"  "+valor );
+    				itenslocdao.AlteraValorItem(valoritem, item.getId());
+    				
+    			        			    
+    			    itenslocdao.FinalizarFinaceiro(fpgto,item.getId());
+    		    	
+    		       	itenslocdao.FinalizarLocacao("F", item.getId());
+    			    
+    			    String msg = "Você atrasou sua devolução em : " + reloc +" Dias!";
+        			
+        			request.setAttribute("msg", msg);
+        			
+        			 String msg1 = "O Valor á ser Pago é de : R$ "+valoritem;
+         			
+         			request.setAttribute("msg1", msg1);
+     			
+    			  
+    			  request.setAttribute("itenslocacao", item);
+    			  
+   
+    			  
+    			  RequestDispatcher saida = request.getRequestDispatcher("Locacao/frmdevitem.jsp");
+    				
+    			 saida.forward(request, response);
+    		   	 
+    		}else{
+    			
+    			
+    			String msg1 = "O item ja foi Devolvido!";
+     			
+     			request.setAttribute("msg1", msg1);
+ 			
+			  
+			  request.setAttribute("itenslocacao", item);
+			  
 
-		
-		
+			  
+			  RequestDispatcher saida = request.getRequestDispatcher("Locacao/frmdevitem.jsp");
+				
+			 saida.forward(request, response);
+    			
+    			
+    		}
+    			
+    			
+    		}
+    		
+    		
+    
+    		
+    		
+    	}
+    	
+
 		
 		if(acao != null && acao.equals("list")){
 			
@@ -391,6 +516,24 @@ if(acao != null && acao.equals("voltar")){
 			
 		}
 		
+		
+		if(acao != null && acao.equals("fimdev")){
+			
+			 String id = request.getParameter("id");
+			   
+			 locdao.FinalizarLocacao("F", Integer.parseInt(id));
+ 
+			RequestDispatcher saida1 = request.getRequestDispatcher("index.jsp");
+				
+		    saida1.forward(request, response);
+	
+			
+		}
+		
+		
+		
+		
+        
 		
 		
 		
@@ -425,6 +568,7 @@ if(acao != null && acao.equals("voltar")){
 				}
 		        */
 	           
+	           
 	           Locacao loca = new Locacao();
 	           
 	           
@@ -433,6 +577,9 @@ if(acao != null && acao.equals("voltar")){
 	           
 	           
 	           loca =  (Locacao) session.getAttribute("locacao");
+	           
+	           
+	           System.out.println(loca.getId());
 	            
 	           
 				itensloc.setLocacao(loca.getId());
@@ -474,7 +621,7 @@ if(acao != null && acao.equals("voltar")){
 				
 				itensloc.setFilme(filme);
 				
-				int dataprev = filme.getTempoloc();
+				int dataprevista = filme.getTempoloc();
 				
 				
 				
@@ -494,7 +641,7 @@ if(acao != null && acao.equals("voltar")){
 				
 				
 				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.DATE,dataprev);
+				cal.add(Calendar.DATE,dataprevista);
 				
 				System.out.println(cal.getTime());
 				itensloc.setDataprevdevolucao(cal);
@@ -507,6 +654,35 @@ if(acao != null && acao.equals("voltar")){
 				itensloc.setQtd(Integer.parseInt(qtditem));
 				
 				
+				Filme filme1 = filmedao.BuscarPorId(filme.getId());
+				
+				
+                /*Realizando os calculos de preço e quantidade*/
+				
+				Locacao locacao = locdao.BuscarPorId(itensloc.getLocacao());
+				
+				Integer idloc = locacao.getId();
+				
+				BigDecimal item = filme1.getPreco();
+				
+				BigDecimal qtd = new BigDecimal(itensloc.getQtd());
+				
+				
+			    BigDecimal valor = locacao.getValor();
+			   
+				item = item.multiply(qtd);
+				
+
+	            
+	            itensloc.setValoritem(item);
+				
+				valor = valor.add(item);
+				
+				System.out.println(valor);
+				
+			    locdao.alterarValor(valor, idloc);
+			    
+			    itensloc.setStatus("A");
 				
 				
 				itenslocdao.adiciona(itensloc);
@@ -519,49 +695,17 @@ if(acao != null && acao.equals("voltar")){
 						listaFilme = changePosition(listaFilme, g);
 					}					
 				}
-				
-				
-				
-				Locacao locacao = locdao.BuscarPorId(itensloc.getLocacao());
-				
-				Integer idloc = locacao.getId();
-				
-                BigDecimal valor = locacao.getValor();
-				
-                System.out.println(locacao.getValor());
-                
-           
-           
-				Filme filme1 = filmedao.BuscarPorId(Integer.parseInt(idfilme));
-				
+  
 				
 				/*Realizando baixa no estoque*/
 				
-				System.out.println("Quant Filme "+filme1.getQtd());
+				System.out.println("Quant Filme "+filme.getQtd());
 				System.out.println("Quant Item "+qtditem);
 				
-				int estoque = (filme1.getQtd() - Integer.parseInt(qtditem));
+				int estoque = (filme.getQtd() - Integer.parseInt(qtditem));
 				
-				filmedao.alterarEstoque(estoque, filme1.getId());
-				
-		
-				
-				/*Realizando os calculos de preço e quantidade*/
-				
-				BigDecimal item = filme.getPreco();
-				
-				BigDecimal qtd = new BigDecimal(itensloc.getQtd());
-			   
-				item = item.multiply(qtd);
-				
-				System.out.println("valor mult"+item);
-				
-				valor = valor.add(item);
-				
-				System.out.println(valor);
-				
-			    locdao.alterarValor(valor, idloc);
-			    
+				filmedao.alterarEstoque(estoque, filme.getId());
+			
 			    
 			    request.setAttribute("locacao", locacao);
 			    

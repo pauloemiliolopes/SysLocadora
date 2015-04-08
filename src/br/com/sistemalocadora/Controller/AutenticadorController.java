@@ -59,7 +59,7 @@ public class AutenticadorController extends HttpServlet {
 			
 			HttpSession sessao = request.getSession();
 			sessao.setMaxInactiveInterval(3000);
-			sessao.setAttribute("usuLogado", usuretorno);			
+			sessao.setAttribute("usuLogado", usuretorno);
 			response.setContentType("text/html;charset=UTF-8");  
 			
 			request.getRequestDispatcher("index.jsp").forward(request, response);

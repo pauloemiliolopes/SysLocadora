@@ -14,16 +14,24 @@
 
 <br/>
 <br/>
-
+ 
 	<table class="table">
 
 		<tr>
 			<td class="success">Numero da Locação :</td>
 			<td>${locacao.id}</td>
+			<td><center><a
+					href="locacaocontroller.do?acao=fimdev&id=${locacao.id }"><button
+							class="btn btn-success">Finalizar Devolução</button></a></center></td>
+			
 			</tr>
 			<tr>
 			<td class="success">Nome do Cliente :</td>
 			<td>${locacao.cliente.nome}</td>
+			<td><span class="text-danger">${requestScope.msg}</span><br/><br/>
+	            <span class="text-danger">${requestScope.msg1}</span>
+			</td>
+			
 		</tr>
 		<tr>
 		    <td class="success">Valor :</td>
@@ -35,12 +43,11 @@
 
 
 	</table>
-	
+
 	<br/>
 <br/><br/>
 <br/>
-	
-	
+
 	<table class="table table-striped" border='1'>
 		<tr bgcolor='EAEAEA' class="success">
 			<td>Codigo</td>
@@ -50,6 +57,7 @@
 			<td>Total do Item</td>
 			<td>Data Prevista para Devolução</td>
 			<td>Data Devolução</td>
+			
 			
 			<td>Ação</td>
 
@@ -72,6 +80,8 @@
 				<td><fmt:formatDate
 						value="${itenslocacao.datadevolucao.time}"
 						pattern="dd/MM/YYYY" /></td>
+						
+					
 
 				<td><a
 					href="itenscontroller.do?acao=devitem&id=${itenslocacao.id }"><button
@@ -85,9 +95,9 @@
 		</c:forEach>
 	</table>
 
+
 	
-	
-<center><span class="text-danger">${msg}</span></center>
+
 
 
 

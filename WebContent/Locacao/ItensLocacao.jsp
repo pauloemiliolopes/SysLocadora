@@ -107,7 +107,7 @@
 				<td>${itenslocacao.filme.nome}</td>
 				<td>${itenslocacao.qtd}</td>
 				<td>${itenslocacao.filme.preco}</td>
-				<td>${itenslocacao.filme.preco * itenslocacao.qtd}</td>
+				<td>${itenslocacao.valoritem}</td>
 				
 
 				<td><fmt:formatDate

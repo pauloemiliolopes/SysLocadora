@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
+
 import br.com.sistemalocadora.DAO.ClienteDAO;
 import br.com.sistemalocadora.DAO.FilmeDAO;
 import br.com.sistemalocadora.DAO.ItensLocacaoDAO;
@@ -41,6 +44,10 @@ public class LocacaoController extends HttpServlet implements
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		 LocacaoDAO locdao = new LocacaoDAO();
+		 
+		 ItensLocacaoDAO itenslocdao = new ItensLocacaoDAO();
 
 		System.out.println("Metodo Get");
 
@@ -74,8 +81,7 @@ public class LocacaoController extends HttpServlet implements
 
 			Locacao loc = new Locacao();
 
-			LocacaoDAO locdao = new LocacaoDAO();
-
+			
 			ClienteDAO clidao = new ClienteDAO();
 
 			FilmeDAO filmedao = new FilmeDAO();
@@ -102,11 +108,66 @@ public class LocacaoController extends HttpServlet implements
 
 		}
 
-		/*
-		 * RequestDispatcher saida = request
-		 * .getRequestDispatcher("Locacao/locacao.jsp"); saida.forward(request,
-		 * response);
-		 */
+		 if(acao != null && acao.equals("fimdev")){
+        	 
+			 String id = request.getParameter("id");
+			 
+			 List<ItensLocacao> lista =  itenslocdao.buscarporLocacao(Integer.parseInt(id));
+			 
+			 System.out.println(lista.toString());
+			 
+	         if(lista.isEmpty()) {
+	        	 
+	        	 locdao.FinalizarLocacao("F", Integer.parseInt(id));
+		          
+		          Locacao loc = locdao.BuscarPorId(Integer.parseInt(id));
+	        
+	        	 
+	        	 request.setAttribute("locacao", loc);
+	        	 
+	        	 
+	        	 RequestDispatcher saida1 = request.getRequestDispatcher("index.jsp");
+					
+	 			 saida1.forward(request, response);
+	        	 
+	         }else{
+	        	 
+	        	 
+	        	 String msg = "Por Favor devolva todos os filmes antes de finalizar a Devolução";
+	        	 
+	        	 
+	        	 request.setAttribute("msg", msg);
+	        	
+	        	 
+	        	        	  
+	        	  Locacao loc = locdao.BuscarPorId(Integer.parseInt(id));
+	        	  
+	        	  List<ItensLocacao> listaitens = itenslocdao.buscarporLocacao(Integer.parseInt(id));
+	        	          	  
+	        	  request.setAttribute("listaItens", listaitens);
+	        	  
+	        	  request.setAttribute("locacao", loc);
+	  
+				 RequestDispatcher saida1 = request.getRequestDispatcher("Locacao/frmdevolucao.jsp");
+					
+				  saida1.forward(request, response);
+	        	 
+	        	 
+	         }
+	          
+	         
+        	 
+        	 
+        	
+			
+				
+				
+				
+			}
+		 
+		 
+		
+			
 	}
 
 	protected void doPost(HttpServletRequest request,

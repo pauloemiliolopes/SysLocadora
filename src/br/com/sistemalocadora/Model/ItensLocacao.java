@@ -1,5 +1,6 @@
 package br.com.sistemalocadora.Model;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 public class ItensLocacao {
@@ -10,6 +11,8 @@ public class ItensLocacao {
 	private Calendar datadevolucao;
 	private Calendar dataprevdevolucao;
 	private int qtd;
+	private BigDecimal valoritem;
+	private String status;
 	
 	
 	public Integer getId() {
@@ -47,6 +50,18 @@ public class ItensLocacao {
 	}
 	public void setQtd(int qtd) {
 		this.qtd = qtd;
+	}
+	public BigDecimal getValoritem() {
+		return valoritem;
+	}
+	public void setValoritem(BigDecimal valoritem) {
+		this.valoritem = valoritem;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 
