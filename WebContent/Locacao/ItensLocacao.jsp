@@ -77,8 +77,7 @@
 		 <label for="dp">Data Previsão de Devolução:</label> 
 		<input type="text" id="dp" disabled="disabled" name="dataprev" value="<fmt:formatDate value="${requestScope.itenslocacao.dataprevdevolucao.time}" pattern="dd/MM/YYYY"/>" /><br />
 		<input type="hidden" value="itensvenda" name="acao" /> <input
-			type="submit" class="btn btn-success"
-			value="Adicionar Iten na Locação" />
+			type="submit" class="btn btn-success" value="Adicionar Iten na Locação" />
 
 	</form>
 

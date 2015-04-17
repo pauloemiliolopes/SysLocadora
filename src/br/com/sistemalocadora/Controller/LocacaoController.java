@@ -155,13 +155,7 @@ public class LocacaoController extends HttpServlet implements
 	        	 
 	         }
 	          
-	         
-        	 
-        	 
-        	
-			
-				
-				
+		
 				
 			}
 		 

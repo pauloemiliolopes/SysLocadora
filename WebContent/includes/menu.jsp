@@ -1,16 +1,14 @@
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-</head>
-<body>
 <c:import url="/includes/css.jsp"></c:import>
 <c:import url="/includes/js.jsp"></c:import>
+</head>
+<body>
+
 <div class="container">
 <div class="btn-group">
   <button type="button" class="btn btn-primary" data-toggle="dropdown" >Inicio  <span class="caret"></span></button>
@@ -58,6 +56,20 @@
   	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/locacaocontroller.do?acao=cad'/>">Alugar Filmes</a></li>
   	<li class="divider"></li>
   	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/itenscontroller.do?acao=listloc'/>">Devolver Filmes</a></li>
+  </ul>
+</div>
+<div class="btn-group">
+  <button type="button" class="btn btn-primary" data-toggle="dropdown" >Financeiro  <span class="caret"></span></button>
+ 
+    <span class="sr-only">Toggle Dropdown</span>
+
+  <ul class="dropdown-menu" role="menu">
+  	
+  	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/financeirocontroller.do?acao=cad'/>">Lancar Movimento de Caixa</a></li>
+  	<li class="divider"></li>
+  	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/caixacontroller.do?acao=listmov'/>">Alterar Movimento de Caixa</a></li>
+  	<li class="divider"></li>
+  	<li role="presentation"><a role="menuitem" tabindex="-1" href="<c:url value='/financeirocontroller.do?acao=list'/>">Baixar Contas a Receber</a></li>
   </ul>
 </div>
 <div class="btn-group">

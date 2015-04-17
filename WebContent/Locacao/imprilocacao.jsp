@@ -80,18 +80,12 @@
 
 	<br />
 	<br />
-	<input type="submit" value="Imprimir" onclick="window.print()" />
-
-	<br />
-
-	<form action="itenscontroller.do">
-		<br /> <br /> <br /> <br /> <br /> <br /> <input type="hidden"
-			name="acao" value="sair" /> <input type="submit"
-			class="btn btn-success" value="Finalizar" />
+	<input type="button" class="botao" name="print" value="Imprimir" onClick="javascript:window.print();">
+	<a href="index.jsp"><input type="button"value="Cancelar"></a>
 
 
 
-	</form>
+
 
 </body>
 </html>

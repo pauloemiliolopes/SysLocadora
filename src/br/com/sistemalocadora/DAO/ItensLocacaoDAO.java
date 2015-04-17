@@ -23,6 +23,8 @@ public class ItensLocacaoDAO {
 	private Connection con = Conexao.getInstance().getConexao();
 
 	FilmeDAO filmedao = new FilmeDAO();
+	
+	LocacaoDAO locdao = new LocacaoDAO();
 
 	public ItensLocacao adiciona(ItensLocacao itenslocacao) {
 
@@ -35,7 +37,7 @@ public class ItensLocacaoDAO {
 			
 			
 
-			stmt.setInt(1, itenslocacao.getLocacao());
+			stmt.setInt(1, itenslocacao.getLocacao().getId());
 			stmt.setInt(2, itenslocacao.getFilme().getId());
 			stmt.setTimestamp(3, new Timestamp(itenslocacao.getDataprevdevolucao().getTimeInMillis()));
 			stmt.setInt(4, itenslocacao.getQtd());
@@ -49,7 +51,7 @@ public class ItensLocacaoDAO {
 			rs.next();
 
 			itenslocacao.setId(rs.getInt("pk_itenslocacao"));
-			itenslocacao.setId(rs.getInt("fk_locacao"));
+			itenslocacao.setLocacao(locdao.BuscarPorId(rs.getInt("fk_locacao")));
 			FilmeDAO dao = new FilmeDAO();
 			Integer fkfil = rs.getInt("fk_filme");
 			itenslocacao.setFilme((dao.BuscarPorId(fkfil)));
@@ -81,7 +83,7 @@ public class ItensLocacaoDAO {
 
 			PreparedStatement stmt = con.prepareStatement(sql);
 
-			stmt.setInt(1, itenslocacao.getLocacao());
+			stmt.setInt(1, itenslocacao.getLocacao().getId());
 			stmt.setInt(2, itenslocacao.getFilme().getId());
 			stmt.setTimestamp(3, new Timestamp(itenslocacao.getDatadevolucao()
 					.getTimeInMillis()));
@@ -147,7 +149,7 @@ public class ItensLocacaoDAO {
 				itenslocacao = new ItensLocacao();
 
 				itenslocacao.setId(rs.getInt("pk_itenslocacao"));
-				itenslocacao.setLocacao(rs.getInt("fk_locacao"));
+				itenslocacao.setLocacao(locdao.BuscarPorId(rs.getInt("fk_locacao")));
 				itenslocacao.setFilme(filmedao.BuscarPorId(rs
 						.getInt("fk_filme")));
 				
@@ -201,7 +203,7 @@ public class ItensLocacaoDAO {
 				ItensLocacao itenslocacao = new ItensLocacao();
 
 				itenslocacao.setId(rs.getInt("pk_itenslocacao"));
-				itenslocacao.setLocacao(rs.getInt("fk_locacao"));
+				itenslocacao.setLocacao(locdao.BuscarPorId(rs.getInt("fk_locacao")));
 				itenslocacao.setFilme(filmedao.BuscarPorId(rs
 						.getInt("fk_filme")));
 				
@@ -245,81 +247,10 @@ public class ItensLocacaoDAO {
 
 	}
 	
-	public List<ItensLocacao> BuscaEntreDatas(Calendar datainicial, Calendar datafinal, String fpgto) {
-
-		String sql = "select * from itenslocacoes  where datadev >= ? and datadev <= ? and formapgto=?";
-
-		List<ItensLocacao> lista = new ArrayList<ItensLocacao>();
-
-		ItensLocacao itenslocacao;
-		
-		try {
-
-			PreparedStatement stmt = con.prepareStatement(sql);
-
-			stmt.setTimestamp(1, new Timestamp(datainicial.getTimeInMillis()));
-			stmt.setTimestamp(2, new Timestamp(datafinal.getTimeInMillis()));
-			stmt.setString(3, fpgto);
-			
-			System.out.println(stmt);
-
-			stmt.execute();
-
-			ResultSet rs = stmt.executeQuery();
-			
-			while (rs.next()) {
-
-				itenslocacao = new ItensLocacao();
-
-				itenslocacao.setId(rs.getInt("pk_itenslocacao"));
-				itenslocacao.setLocacao(rs.getInt("fk_locacao"));
-				itenslocacao.setFilme(filmedao.BuscarPorId(rs
-						.getInt("fk_filme")));
-				
-				
-
-				Calendar c = Calendar.getInstance();
-				c.setTimeInMillis((rs.getTimestamp("dataprevdev").getTime()));
-				itenslocacao.setDataprevdevolucao(c);
-				
-				
-                Timestamp data = rs.getTimestamp("datadev");
-                
-             
-				
-				if(data != null){
-					
-					Calendar ca = Calendar.getInstance();
-					ca.setTimeInMillis((rs.getTimestamp("datadev").getTime()));
-					itenslocacao.setDatadevolucao(ca);
-					
-				}
-				
-				itenslocacao.setQtd(rs.getInt("qtd"));
-				
-				itenslocacao.setValoritem(rs.getBigDecimal("valoritem"));
-				itenslocacao.setStatus(rs.getString("status"));
-
-				lista.add(itenslocacao);
-
-			}
-
-			
-			stmt.close();
-
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-
-		return lista;
-     
-	}
-
-
+	
 	public List<ItensLocacao> buscarporLocacao(int id) {
 
-		String sql = "select * from itenslocacoes where fk_locacao=? and status ='A'";
+		String sql = "select * from itenslocacoes where fk_locacao=? and status='A'";
 
 		List<ItensLocacao> lista = new ArrayList<ItensLocacao>();
 
@@ -338,7 +269,7 @@ public class ItensLocacaoDAO {
 				ItensLocacao itenslocacao = new ItensLocacao();
 
 				itenslocacao.setId(rs.getInt("pk_itenslocacao"));
-				itenslocacao.setLocacao(rs.getInt("fk_locacao"));
+				itenslocacao.setLocacao(locdao.BuscarPorId(rs.getInt("fk_locacao")));
 				itenslocacao.setFilme(filmedao.BuscarPorId(rs
 						.getInt("fk_filme")));
 				
@@ -426,7 +357,7 @@ public class ItensLocacaoDAO {
 		
 	}
 	
-	public void FinalizarLocacao(String Status, int id) {
+	public void FinalizarItensLocacao(String Status, int id) {
 
 		String sql = "update itenslocacoes set Status=? where pk_itenslocacao=?";
 
@@ -451,54 +382,8 @@ public class ItensLocacaoDAO {
 	}
 
 	
-	public void FinalizarFinaceiro(String fpgto, int id) {
-
-		String sql = "update itenslocacoes set formapgto=? where pk_itenslocacao=?";
-
-		try {
-
-			PreparedStatement stmt = con.prepareStatement(sql);
-
-			stmt.setString(1, fpgto);
-			stmt.setInt(2, id);
-
-			stmt.execute();
-			stmt.close();
-
-			System.out.println("Financeiro Atualizado");
-
-		} catch (SQLException e) {
-
-			System.out.println("Erro ao Atualizar Locacao " + e.getMessage());
-
-		}
-
-	}
-
-	public void AlteraValorItem(BigDecimal valoritem, int id) {
-
-		String sql = "update itenslocacoes set valoritem=? where pk_itenslocacao=?";
-
-		try {
-
-			PreparedStatement stmt = con.prepareStatement(sql);
-
-			stmt.setBigDecimal(1, valoritem);
-			stmt.setInt(2, id);
-
-			stmt.execute();
-			stmt.close();
-
-			System.out.println("Valor Item Atualizado");
-
-		} catch (SQLException e) {
-
-			System.out.println("Erro ao Atualizar Locacao " + e.getMessage());
-
-		}
-
-	}
-
+	
+	
 	
 
 }

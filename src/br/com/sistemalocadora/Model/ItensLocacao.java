@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class ItensLocacao {
 	
 	private Integer id;
-	private int locacao;
+	private Locacao locacao;
 	private Filme filme;
 	private Calendar datadevolucao;
 	private Calendar dataprevdevolucao;
@@ -21,12 +21,7 @@ public class ItensLocacao {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getLocacao() {
-		return locacao;
-	}
-	public void setLocacao(int locacao) {
-		this.locacao = locacao;
-	}
+	
 	public Filme getFilme() {
 		return filme;
 	}
@@ -62,6 +57,12 @@ public class ItensLocacao {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Locacao getLocacao() {
+		return locacao;
+	}
+	public void setLocacao(Locacao locacao) {
+		this.locacao = locacao;
 	}
 	
 
